@@ -1,0 +1,23 @@
+{
+  "entrypoint": "a",
+  "unified-url": "http://localhost:3010",
+  "defaults": {
+    "fetchEndpoint": "../../config/fetch-endpoint.js",
+    "shell": "../../config/shell.js"
+  },
+  "tasks": {
+    "a": {
+      "file": "../a.js",
+      "url": "http://task-a:3000"
+    },
+    "b": {
+      "file": "../nested/b.js",
+      "shell": "../../config/shell.js",
+      "url": "http://task-b:3000"
+    },
+    "c": {
+      "file": "../nested/c.js",
+      "url": "http://task-c:3000"
+    }
+  }
+}
