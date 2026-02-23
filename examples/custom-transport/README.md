@@ -1,6 +1,6 @@
 # Custom transport example
 
-This example shows you the simplest way to split modules and unify them. It is based on the basic example.
+This example shows you how to customize the transport in distributed mode. It is based on the basic example.
 
 The default transport uses http webservers to communicate. The framework can use other protocols, but it's up to you to develop your own server (with Express.js? gRPC? Nest?) and the associated network caller. 
 
