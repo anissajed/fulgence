@@ -1,4 +1,5 @@
 import http from 'http';
+import {REQ_MAX_SIZE_BYTES} from "./constants.js";
 
 const requestBody = (req, req_max_size_bytes = 0) => new Promise((resolve, reject) => {
   let body = '';
@@ -54,12 +55,11 @@ const handleNotFound = (req, res) => {
 
 const isRootPostRequest = (req) => req.method == 'POST' || req.url == '/';
 
-const TEN_MEGABYTES = 10 * 1000 * 1000;
 export const runServer = ({
   task,
   api,
   port = 3000,
-  req_max_size_bytes = TEN_MEGABYTES,
+  req_max_size_bytes = REQ_MAX_SIZE_BYTES,
   onReady = (port) => {},
 }) => {
   const server = http.createServer(async (req, res) => {

@@ -13,3 +13,6 @@ export const MODULE_DEFAULTS = {
   [CONFIG_SHELL_ATTR]: defaultShell,
   [CONFIG_FETCH_ATTR]: defaultFetchWrapper,
 };
+
+const TEN_MEGABYTES = 10 * 1000 * 1000;
+export const REQ_MAX_SIZE_BYTES = TEN_MEGABYTES;
