@@ -1,6 +1,5 @@
 export const CONFIG_UNIFIED_URL_ATTR = "unified-url";
-export const CONFIG_SHELL_ATTR = "shell";
-export const CONFIG_FETCH_ATTR = "fetch";
+export const CONFIG_TRANSPORT_ATTR = "transport";
 export const CONFIG_URL_ATTR = "url";
 export const CONFIG_FILE_ATTR = "file";
 export const CONFIG_DEFAULTS_ATTR = "defaults";

@@ -1,13 +1,11 @@
 {
-  "name": "webservice-splitter",
+  "name": "webservice-splitter-example-custom-transport",
   "version": "1.0.0",
   "description": "",
   "main": "./index.js",
   "type": "module",
-  "exports": {
-    "./default-transport": "./transport/default/index.js"
-  },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

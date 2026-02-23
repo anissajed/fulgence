@@ -1,14 +1,12 @@
 import path from 'path';
-import defaultShell from '../transport/default/shell.js';
-import defaultFetchWrapper from '../transport/default/fetch-endpoint.js';
+import * as defaultTransportAttr from "../transport/default/index.js";
 import {
   CONFIG_TASKS_ATTR,
   CONFIG_DEFAULTS_ATTR,
   CONFIG_ENTRYPOINT_ATTR,
   CONFIG_UNIFIED_URL_ATTR,
   CONFIG_FILE_ATTR,
-  CONFIG_SHELL_ATTR,
-  CONFIG_FETCH_ATTR,
+  CONFIG_TRANSPORT_ATTR,
   CONFIG_URL_ATTR,
 } from '../constants.js';
 
@@ -37,11 +35,10 @@ export const taskConfig = ({config, name}) => {
   const {
     [CONFIG_URL_ATTR]: url,
     [CONFIG_FILE_ATTR]: file,
-    [CONFIG_SHELL_ATTR]: shell,
-    [CONFIG_FETCH_ATTR]: _fetch,
+    [CONFIG_TRANSPORT_ATTR]: transport,
   } = tasks[name];
 
-  return {url, file, shell, fetch: _fetch};
+  return {url, file, transport};
 }
 
 export const loadTask = async ({task_config, basepath}) => {
@@ -55,10 +52,9 @@ export const loadTask = async ({task_config, basepath}) => {
 }
 
 const MODULE_DEFAULTS = {
-  [CONFIG_SHELL_ATTR]: defaultShell,
-  [CONFIG_FETCH_ATTR]: defaultFetchWrapper,
+  [CONFIG_TRANSPORT_ATTR]: defaultTransportAttr,
 };
-export const loadTaskAttrWithDefaults = async ({task_config, defaults, basepath, attribute}) => {
+const loadTaskAttrWithDefaults = async ({task_config, defaults, basepath, attribute}) => {
   if (!task_config?.[attribute] && !defaults?.[attribute]) {
     return MODULE_DEFAULTS[attribute];
   }
@@ -69,20 +65,22 @@ export const loadTaskAttrWithDefaults = async ({task_config, defaults, basepath,
     attribute,
   });
 
-  const loaded = module.default;
-  return loaded;
+  return module;
 }
 
-export const loadFetchWrapper = ({
+export const loadFetchWrapper = async ({
   task_config,
   defaults,
   basepath,
-}) => loadTaskAttrWithDefaults({
-  task_config,
-  defaults,
-  basepath,
-  attribute: CONFIG_FETCH_ATTR,
-});
+}) => {
+  const transport_attr = await loadTaskAttrWithDefaults({
+    task_config,
+    defaults,
+    basepath,
+    attribute: CONFIG_TRANSPORT_ATTR,
+  });
+  return transport_attr?.fetchEndpoint;
+}
 
 export const getTask = async ({name, config, config_path}) => loadTask({
   task_config: config[CONFIG_TASKS_ATTR][name],
@@ -90,16 +88,22 @@ export const getTask = async ({name, config, config_path}) => loadTask({
   basepath: path.dirname(config_path),
 });
 
-export const getShell = ({name, config, config_path}) => loadTaskAttrWithDefaults({
-  task_config: config[CONFIG_TASKS_ATTR][name],
-  defaults: config[CONFIG_DEFAULTS_ATTR],
-  basepath: path.dirname(config_path),
-  attribute: CONFIG_SHELL_ATTR,
-});
+export const getShell = async ({name, config, config_path}) => {
+  const transport_attr = await loadTaskAttrWithDefaults({
+    task_config: config[CONFIG_TASKS_ATTR][name],
+    defaults: config[CONFIG_DEFAULTS_ATTR],
+    basepath: path.dirname(config_path),
+    attribute: CONFIG_TRANSPORT_ATTR,
+  });
+  return transport_attr?.shell;
+};
 
-export const getFetchWrapper = ({name, config, config_path}) => loadTaskAttrWithDefaults({
-  task_config: config[CONFIG_TASKS_ATTR][name],
-  defaults: config[CONFIG_DEFAULTS_ATTR],
-  basepath: path.dirname(config_path),
-  attribute: CONFIG_FETCH_ATTR,
-});
+export const getFetchWrapper = async ({name, config, config_path}) => {
+  const transport_attr = await loadTaskAttrWithDefaults({
+    task_config: config[CONFIG_TASKS_ATTR][name],
+    defaults: config[CONFIG_DEFAULTS_ATTR],
+    basepath: path.dirname(config_path),
+    attribute: CONFIG_TRANSPORT_ATTR,
+  });
+  return transport_attr?.fetchEndpoint;
+};

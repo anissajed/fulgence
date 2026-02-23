@@ -1,0 +1,22 @@
+{
+  "entrypoint": "a",
+  "unified-url": "http://localhost:3010",
+  "defaults": {
+    "transport": "../../../transport/default/index.js"
+  },
+  "tasks": {
+    "a": {
+      "file": "../a.js",
+      "url": "http://task-a:3000"
+    },
+    "b": {
+      "file": "../nested/b.js",
+      "shell": "../../../transport/default/shell.js",
+      "url": "http://task-b:3000"
+    },
+    "c": {
+      "file": "../nested/c.js",
+      "url": "http://task-c:3000"
+    }
+  }
+}

@@ -1,11 +1,8 @@
 import path from 'path';
-import loadConfig from "./config/load-config.js";
 import {
   loadTask,
   refinedConfig,
   loadFetchWrapper,
-  taskConfig,
-  getFetchWrapper,
 } from "./config/use-config.js";
 
 const makeApi = async (tasks, taskCallerFactory) => {
