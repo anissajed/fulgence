@@ -1,5 +1,5 @@
 {
-  "name": "webservice-splitter-example",
+  "name": "webservice-splitter-example-basic",
   "version": "1.0.0",
   "description": "",
   "main": "./index.js",

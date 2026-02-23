@@ -1,10 +1,6 @@
 {
   "entrypoint": "a",
   "unified-url": "http://localhost:3010",
-  "defaults": {
-    "fetchEndpoint": "../../../transport/default/fetch-endpoint.js",
-    "shell": "../../../transport/default/shell.js"
-  },
   "tasks": {
     "a": {
       "file": "../a.js",

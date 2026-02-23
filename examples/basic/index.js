@@ -7,6 +7,6 @@ if ([undefined, "", "a"].includes(process.env.CHUNK_NAME)) {
       example: true,
     };
     const res = await callEntrypoint(payload);
-    console.log("Final result", res);
+    console.log("Final result:", res);
   }, 2000);
 }
