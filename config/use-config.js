@@ -1,4 +1,6 @@
 import path from 'path';
+import defaultShell from '../transport/default/shell.js';
+import defaultFetchWrapper from '../transport/default/fetch-endpoint.js';
 import {
   CONFIG_TASKS_ATTR,
   CONFIG_DEFAULTS_ATTR,
@@ -7,9 +9,8 @@ import {
   CONFIG_FILE_ATTR,
   CONFIG_SHELL_ATTR,
   CONFIG_FETCH_ATTR,
-  MODULE_DEFAULTS,
   CONFIG_URL_ATTR,
-} from './constants.js';
+} from '../constants.js';
 
 const loadTaskAttr = async ({task_config, basepath, attribute}) => {
   let loadable_path = task_config[attribute];
@@ -53,6 +54,10 @@ export const loadTask = async ({task_config, basepath}) => {
   return loaded;
 }
 
+const MODULE_DEFAULTS = {
+  [CONFIG_SHELL_ATTR]: defaultShell,
+  [CONFIG_FETCH_ATTR]: defaultFetchWrapper,
+};
 export const loadTaskAttrWithDefaults = async ({task_config, defaults, basepath, attribute}) => {
   if (!task_config?.[attribute] && !defaults?.[attribute]) {
     return MODULE_DEFAULTS[attribute];

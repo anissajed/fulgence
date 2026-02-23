@@ -1,4 +1,4 @@
-import entrypoint, {callEntrypointFactory, loadConfigJSON} from "../../index.js";
+import entrypoint, {callEntrypointFactory, loadConfigJSON} from "../../../index.js";
 
 const {CHUNK_NAME: name, PORT: port = 3010} = process.env;
 const config_path = new URL("./api-config.json", import.meta.url).pathname;

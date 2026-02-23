@@ -1,5 +1,5 @@
 import http from 'http';
-import {REQ_MAX_SIZE_BYTES} from "./constants.js";
+import {REQ_MAX_SIZE_BYTES} from "../../constants.js";
 
 const requestBody = (req, req_max_size_bytes = 0) => new Promise((resolve, reject) => {
   let body = '';

@@ -4,7 +4,7 @@ import {
   CONFIG_URL_ATTR,
   CONFIG_TASKS_ATTR,
   CONFIG_ENTRYPOINT_ATTR,
-} from './constants.js';
+} from '../constants.js';
 
 const validateConfig = (config_json) => {
   if (!config_json) {

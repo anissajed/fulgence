@@ -2,8 +2,8 @@
   "entrypoint": "a",
   "unified-url": "http://localhost:3010",
   "defaults": {
-    "fetchEndpoint": "../../config/fetch-endpoint.js",
-    "shell": "../../config/shell.js"
+    "fetchEndpoint": "../../../transport/default/fetch-endpoint.js",
+    "shell": "../../../transport/default/shell.js"
   },
   "tasks": {
     "a": {
@@ -12,7 +12,7 @@
     },
     "b": {
       "file": "../nested/b.js",
-      "shell": "../../config/shell.js",
+      "shell": "../../../transport/default/shell.js",
       "url": "http://task-b:3000"
     },
     "c": {
