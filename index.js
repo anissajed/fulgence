@@ -1,2 +1,3 @@
-export {default, callEntrypointFactory} from './entrypoint.js';
-export {default as loadConfigJSON} from './config/load-config.js';
+export {entrypoint as default} from './entrypoint.js';
+export {loadApi} from "./api.js";
+export {loadConfig as loadConfigJSON} from './config/load-config.js';

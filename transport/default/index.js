@@ -1,2 +1,2 @@
-export {default as fetchEndpoint} from './fetch-endpoint.js';
-export {default as shell} from './shell.js';
+export {fetchEndpoint} from './client.js';
+export {shell} from './server.js';

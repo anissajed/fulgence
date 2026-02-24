@@ -1,5 +1,5 @@
-const fetchWrapper = (url) => async (opts) => {
-  const response = await fetch(url, {
+export const fetchEndpoint = ({name, url}) => async (opts) => {
+  const response = await fetch(url + "/" + name, {
     method: "POST",
     body: JSON.stringify(opts),
   });
@@ -10,5 +10,3 @@ const fetchWrapper = (url) => async (opts) => {
 
   return result;
 };
-
-export default fetchWrapper;

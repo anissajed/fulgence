@@ -37,7 +37,9 @@ const doTask = async ({task, input, api}) => {
   return res;
 };
 
-const rootPostRequestController = async ({req, res, task, api, req_max_size_bytes}) => {
+const rootPostRequestController = async ({req, res, api, req_max_size_bytes}) => {
+  const task_name = req.url.replace(/^\//, "");
+  const task = api[task_name];
   const body = await requestBody(req, req_max_size_bytes);
 
   const response_body = await doTask({task, api, input: body});
@@ -53,24 +55,21 @@ const handleNotFound = (req, res) => {
   res.end();
 }
 
-const isRootPostRequest = (req) => req.method == 'POST' || req.url == '/';
-
-export const runServer = ({
-  task,
+export const shell = ({
   api,
   port = 3000,
   req_max_size_bytes = REQ_MAX_SIZE_BYTES,
   onReady = (port) => {},
 }) => {
+  const tasks_urls = Object.keys(api).map((task_name) => "/" + task_name);
   const server = http.createServer(async (req, res) => {
-    if (!isRootPostRequest(req)) {
+    if (req.method != "POST" || !tasks_urls.includes(req.url)) {
       return handleNotFound(req, res);
     }
 
     await rootPostRequestController({
       req,
       res,
-      task,
       api,
       req_max_size_bytes,
     });
@@ -78,5 +77,3 @@ export const runServer = ({
 
   server.listen(port, () => onReady(port));
 }
-
-export default runServer;

@@ -3,12 +3,13 @@ import {
   loadTask,
   refinedConfig,
   loadFetchWrapper,
+  getTask,
 } from "./config/use-config.js";
 
 const makeApi = async (tasks, taskCallerFactory) => {
   const tasks_entries_proms = Object.entries(tasks).map(
     async ([name, task_config]) => {
-      const taskCaller = await taskCallerFactory(task_config);
+      const taskCaller = await taskCallerFactory({name, task_config});
       return [name, taskCaller];
     }
   );
@@ -19,7 +20,8 @@ const makeApi = async (tasks, taskCallerFactory) => {
 
 const directApi = async ({config, basepath}) => {
   const {tasks} = refinedConfig(config);
-  const api = await makeApi(tasks, async (task_config) => {
+  let api = {};
+  api = await makeApi(tasks, async ({name, task_config}) => {
     const task = await loadTask({task_config, basepath});
     return task;
   });
@@ -28,22 +30,32 @@ const directApi = async ({config, basepath}) => {
 };
 
 const fetchApi = async ({config, basepath}) => {
-  const {defaults, tasks, entrypoint} = refinedConfig(config);
+  const {tasks} = refinedConfig(config);
 
-  const api = await makeApi(tasks, async (task_config) => {
-    const fetchWrapper = await loadFetchWrapper({task_config, defaults, basepath});
-    const fetchEndpoint = fetchWrapper(task_config.url);
+  const api = await makeApi(tasks, async ({name, task_config}) => {
+    const fetchWrapper = await loadFetchWrapper({config, basepath});
+    const fetchEndpoint = fetchWrapper({name, url: task_config.url});
     return fetchEndpoint;
   });
 
   return api;
 };
 
-const loadApi = async ({use_fetch = false, config, config_path}) => {
-  const getApi = use_fetch ? fetchApi : directApi;
+export const loadApi = async ({local_module_name = "", config, config_path}) => {
+  const getRawApi = !!local_module_name ? fetchApi : directApi;
+  
   const basepath = path.dirname(config_path);
-  const api = await getApi({config, basepath});
+  const api = await getRawApi({config, basepath});
+
+  if (local_module_name) {
+    const task = await getTask({
+      name: local_module_name,
+      config,
+      config_path,
+    });
+    const caller = (input) => task(input, api);
+    api[local_module_name] = caller;
+  }
 
   return api;
 }
-export default loadApi;

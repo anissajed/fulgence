@@ -3,7 +3,6 @@ import {
   CONFIG_FILE_ATTR,
   CONFIG_URL_ATTR,
   CONFIG_TASKS_ATTR,
-  CONFIG_ENTRYPOINT_ATTR,
 } from '../constants.js';
 
 const validateConfig = (config_json) => {
@@ -12,16 +11,11 @@ const validateConfig = (config_json) => {
   }
 
   const {
-    [CONFIG_ENTRYPOINT_ATTR]: entrypoint,
     [CONFIG_TASKS_ATTR]: tasks,
   } = config_json;
 
-  if (!entrypoint || !tasks) {
+  if (!tasks) {
     throw new Error("Config check: lacking mandatory root field");
-  }
-
-  if (!tasks[entrypoint]) {
-    throw new Error("Config check: entrypoint is not a task id");
   }
 
   const falsy_task = Object.values(tasks).some((task) => !task);
@@ -44,7 +38,7 @@ const validateConfig = (config_json) => {
   }
 }
 
-const loadConfig = async (config_path) => {
+export const loadConfig = async (config_path) => {
   const module = await import(config_path, {
     with: {
       type: 'json',
@@ -55,5 +49,3 @@ const loadConfig = async (config_path) => {
   validateConfig(config);
   return config;
 }
-
-export default loadConfig;

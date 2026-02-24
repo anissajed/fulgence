@@ -1,6 +1,4 @@
 {
-  "entrypoint": "a",
-  "unified-url": "http://localhost:3010",
   "defaults": {
     "transport": "../../../transport/default/index.js"
   },

@@ -1,6 +1,4 @@
 {
-  "entrypoint": "a",
-  "unified-url": "http://localhost:3010",
   "tasks": {
     "a": {
       "file": "../a.js",
