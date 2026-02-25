@@ -25,7 +25,7 @@ task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
 ```
 
 ## Notes
-The default transport is located in `../../../transport/default/index.js` (relative to `api-config.json`), so it is equivalent in `api-config.json` to set this value or let the field unset.
+The default transport is located in `../../../transport/default/index.js` (relative to `api-config.json`), so it is equivalent in `api-config.json` to set this value (as it is currently set in the file) or let the field unset.
 
 On a "real use case", to set your transport you could use this kind of shortcut:
 ```

@@ -13,7 +13,7 @@ After that, install the example dependencies (in this directory): `npm install`.
 ## Run
 
 ### Monolith mode
-Note: the server listens by default on the 3010 port. Ensure the port is accessible - or change it - before running the server.
+Note: the server listens by default on the 3010 port. Ensure the port is accessible - or change it with the PORT env var - before running the server.
 ```
 $ node ./index.js
 ...
@@ -35,3 +35,6 @@ task-b  | Run module b on chunk "b"
 task-c  | Run module c on chunk "c"
 task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
 ```
+
+## Notes
+This example is more a proof-of-concept than a production-ready guide; in particular, there is no authentication in the inter-chunks communication. To enable auth (with the default transport), please see the `basic-with-auth` example.
