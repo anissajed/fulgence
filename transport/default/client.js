@@ -1,7 +1,8 @@
-export const fetchEndpoint = ({name, url}) => async (opts) => {
+export const clientFactory = ({name, url}) => async (body = "", fetch_opts = {}) => {
   const response = await fetch(url + "/" + name, {
     method: "POST",
-    body: JSON.stringify(opts),
+    ...fetch_opts,
+    body: JSON.stringify(body),
   });
   const {error, result} = await response.json();
   if (error) {
