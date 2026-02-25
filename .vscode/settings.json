@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "examples",
-    "transports"
+    "transports",
+    "lib"
   ]
 }

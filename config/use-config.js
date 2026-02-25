@@ -57,13 +57,13 @@ const loadDefaultAttr = async ({config, basepath, attribute}) => {
   return module;
 }
 
-export const loadFetchWrapper = async ({config, basepath}) => {
+export const getClientFactory = async ({config, basepath}) => {
   const transport_attr = await loadDefaultAttr({
     config,
     basepath,
     attribute: CONFIG_TRANSPORT_ATTR,
   });
-  return transport_attr?.fetchEndpoint;
+  return transport_attr?.clientFactory;
 }
 
 export const getTask = async ({name, config, config_path}) => loadTask({
@@ -87,5 +87,5 @@ export const getFetchWrapper = async ({name, config, config_path}) => {
     basepath: path.dirname(config_path),
     attribute: CONFIG_TRANSPORT_ATTR,
   });
-  return transport_attr?.fetchEndpoint;
+  return transport_attr?.clientFactory;
 };

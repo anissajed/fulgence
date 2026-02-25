@@ -2,7 +2,7 @@ import path from 'path';
 import {
   loadTask,
   refinedConfig,
-  loadFetchWrapper,
+  getClientFactory,
   getTask,
 } from "./config/use-config.js";
 
@@ -33,15 +33,15 @@ const fetchApi = async ({config, basepath}) => {
   const {tasks} = refinedConfig(config);
 
   const api = await makeApi(tasks, async ({name, task_config}) => {
-    const fetchWrapper = await loadFetchWrapper({config, basepath});
-    const fetchEndpoint = fetchWrapper({name, url: task_config.url});
+    const clientFactory = await getClientFactory({config, basepath});
+    const fetchEndpoint = clientFactory({name, url: task_config.url});
     return fetchEndpoint;
   });
 
   return api;
 };
 
-export const loadApi = async ({local_module_name = "", config, config_path}) => {
+export const buildApi = async ({local_module_name = "", config, config_path}) => {
   const getRawApi = !!local_module_name ? fetchApi : directApi;
   
   const basepath = path.dirname(config_path);

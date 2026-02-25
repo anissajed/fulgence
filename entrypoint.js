@@ -1,4 +1,4 @@
-import {loadApi} from './api.js';
+import {buildApi} from './api.js';
 import {getTask, getShell} from './config/use-config.js';
 
 export const entrypoint = async ({
@@ -7,7 +7,7 @@ export const entrypoint = async ({
   config_path,
   ...rest
 }) => {
-  const api = await loadApi({
+  const api = await buildApi({
     local_module_name: name,
     config,
     config_path,
