@@ -18,7 +18,7 @@ const makeApi = async (tasks, taskCallerFactory) => {
   return Object.fromEntries(tasks_entries);
 };
 
-const directApi = async ({config, basepath}) => {
+const localApi = async ({config, basepath}) => {
   const {tasks} = refinedConfig(config);
   let api = {};
   api = await makeApi(tasks, async ({name, task_config}) => {
@@ -29,20 +29,20 @@ const directApi = async ({config, basepath}) => {
   return api;
 };
 
-const fetchApi = async ({config, basepath}) => {
+const remoteApi = async ({config, basepath}) => {
   const {tasks} = refinedConfig(config);
 
   const api = await makeApi(tasks, async ({name, task_config}) => {
     const clientFactory = await getClientFactory({config, basepath});
-    const fetchEndpoint = clientFactory({name, url: task_config.url});
-    return fetchEndpoint;
+    const callTask = clientFactory({name, url: task_config.url});
+    return callTask;
   });
 
   return api;
 };
 
 export const buildApi = async ({local_module_name = "", config, config_path}) => {
-  const getRawApi = !!local_module_name ? fetchApi : directApi;
+  const getRawApi = !!local_module_name ? remoteApi : localApi;
   
   const basepath = path.dirname(config_path);
   const api = await getRawApi({config, basepath});
@@ -53,8 +53,8 @@ export const buildApi = async ({local_module_name = "", config, config_path}) =>
       config,
       config_path,
     });
-    const caller = (input) => task(input, api);
-    api[local_module_name] = caller;
+    const callTask = (input) => task(input, api);
+    api[local_module_name] = callTask;
   }
 
   return api;
