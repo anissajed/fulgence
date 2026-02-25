@@ -1,5 +1,5 @@
 import {buildApi} from './api.js';
-import {getTask, getShell} from './config/use-config.js';
+import {getShell} from './config/use-config.js';
 
 export const entrypoint = async ({
   name,
@@ -15,8 +15,10 @@ export const entrypoint = async ({
 
   const shell = await getShell({name, config, config_path});
 
-  return shell({
+  const server = shell({
     ...rest,
     api,
   });
+
+  return {server, api};
 }

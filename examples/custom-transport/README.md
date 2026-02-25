@@ -15,14 +15,7 @@ Next, install the example dependencies (in this directory): `npm install`.
 Since the monolith mode doesn't use the transports, it is equivalent to the monolith mode in the basic example.
 
 ### Distributed mode
-```
-$ docker-compose up
-...
-task-a  | Run module a on chunk "a"
-task-b  | Run module b on chunk "b"
-task-c  | Run module c on chunk "c"
-task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
-```
+It's the same way as the distributed mode in the basic example, with same expected results.
 
 ## Notes
 The default transport is located in `../../../transport/default/index.js` (relative to `api-config.json`), so it is equivalent in `api-config.json` to set this value (as it is currently set in the file) or let the field unset.
