@@ -1,6 +1,6 @@
 {
   "defaults": {
-    "transport": "../../../lib/transport/default/index.js"
+    "transport": "../json-rpc-transport/index.js"
   },
   "tasks": {
     "a": {

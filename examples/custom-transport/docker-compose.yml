@@ -10,7 +10,9 @@ services:
     - ../..:/usr/src
     - ../basic:/usr/src/examples/custom-transport
     - ./api/api-config.json:/usr/src/examples/custom-transport/api/api-config.json
+    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
     - ./package.json:/usr/src/examples/custom-transport/package.json
+    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network
@@ -25,7 +27,9 @@ services:
     - ../..:/usr/src
     - ../basic:/usr/src/examples/custom-transport
     - ./api/api-config.json:/usr/src/examples/custom-transport/api/api-config.json
+    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
     - ./package.json:/usr/src/examples/custom-transport/package.json
+    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network
@@ -40,7 +44,9 @@ services:
     - ../..:/usr/src
     - ../basic:/usr/src/examples/custom-transport
     - ./api/api-config.json:/usr/src/examples/custom-transport/api/api-config.json
+    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
     - ./package.json:/usr/src/examples/custom-transport/package.json
+    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network
