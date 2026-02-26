@@ -3,8 +3,17 @@ import {
   loadTask,
   refinedConfig,
   getClientFactory,
-  getTask,
 } from "./config/use-config.js";
+
+const localTaskCaller = async ({
+  task_config,
+  basepath,
+  api,
+}) => {
+  const task = await loadTask({task_config, basepath});
+  const callTask = (input) => task(input, api);
+  return callTask;
+};
 
 const makeApi = async (tasks, taskCallerFactory) => {
   const tasks_entries_proms = Object.entries(tasks).map(
@@ -21,9 +30,14 @@ const makeApi = async (tasks, taskCallerFactory) => {
 const localApi = async ({config, basepath}) => {
   const {tasks} = refinedConfig(config);
   let api = {};
-  api = await makeApi(tasks, async ({name, task_config}) => {
-    const task = await loadTask({task_config, basepath});
-    return task;
+  await makeApi(tasks, async ({name, task_config}) => {
+    const callTask = await localTaskCaller({
+      task_config,
+      basepath,
+      api,
+    });
+    api[name] = callTask;
+    return callTask;
   });
 
   return api;
@@ -48,13 +62,13 @@ export const buildApi = async ({local_module_name = "", config, config_path}) =>
   const api = await getRawApi({config, basepath});
 
   if (local_module_name) {
-    const task = await getTask({
-      name: local_module_name,
-      config,
-      config_path,
+    const {tasks} = refinedConfig(config);
+    const task_config = tasks[local_module_name];
+    api[local_module_name] = await localTaskCaller({
+      task_config,
+      basepath,
+      api,
     });
-    const callTask = (input) => task(input, api);
-    api[local_module_name] = callTask;
   }
 
   return api;

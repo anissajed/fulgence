@@ -66,12 +66,6 @@ export const getClientFactory = async ({config, basepath}) => {
   return transport_attr?.clientFactory;
 }
 
-export const getTask = async ({name, config, config_path}) => loadTask({
-  task_config: config[CONFIG_TASKS_ATTR][name],
-  defaults: config[CONFIG_DEFAULTS_ATTR],
-  basepath: path.dirname(config_path),
-});
-
 export const getShell = async ({name, config, config_path}) => {
   const transport_attr = await loadDefaultAttr({
     config,
