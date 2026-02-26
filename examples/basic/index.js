@@ -3,8 +3,7 @@ import runServer from "./api/api.js";
  * called (contrary to the present situation), we can invoke api with something like:
  * import {buildApi} from "<this package>";
  * const api = await buildApi({
- *   local_module_name: ..., // name from
- *   config_path: ...,
+ *   local_module_name: ...,
  *   config: ...,
  * });
  */

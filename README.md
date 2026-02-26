@@ -11,22 +11,27 @@ The code is highly modulable, to be easily adapted to precise needs.
 {
   "tasks": {
     "a": {
-      "file": "../a.js",
+      "file": "./a.js",
       "url": "http://task-a:3001"
     },
     "b": {
-      "file": "../nested/b.js",
+      "file": "./b.js",
       "url": "http://localhost:3002"
     },
   }
 }
 
+// a.js
+export default async (input, api) => ({
+  ...(await api.b(input)),
+  a: "a",
+});
+
 // index-a.js
 ...
 const {api} = await entrypoint({
   name: "a",
-  config_path: ...,
-  config: ...,
+  config_path: "./api-config.json",
   port: 3001,
 });
 const result = await api.a({"arg": "initial argument"});
@@ -35,15 +40,14 @@ console.log("Result:", result);
 // index-b.js
 await entrypoint({
   name: "b",
-  config_path: ...,
-  config: ...,
+  config_path: "./api-config.json",
   port: 3002,
 });
 
 // shell
 $ node ./index-b.js &
 $ node ./index-a.js &
-# Result: { arg: "initial argument", b: 'b', a: 'a' }
+# Result: <depends on your tasks>
 ```
 
 ### More examples, full examples
