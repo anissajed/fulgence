@@ -9,7 +9,6 @@
     },
     "b": {
       "file": "../nested/b.js",
-      "shell": "../../../lib/transport/default/shell.js",
       "url": "http://task-b:3000"
     },
     "c": {
