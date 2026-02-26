@@ -1,6 +1,6 @@
 {
   "defaults": {
-    "transport": "../../../transport/default/index.js"
+    "transport": "../../../lib/transport/default/index.js"
   },
   "tasks": {
     "a": {
@@ -9,7 +9,7 @@
     },
     "b": {
       "file": "../nested/b.js",
-      "shell": "../../../transport/default/shell.js",
+      "shell": "../../../lib/transport/default/shell.js",
       "url": "http://task-b:3000"
     },
     "c": {

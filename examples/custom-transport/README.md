@@ -18,7 +18,7 @@ Since the monolith mode doesn't use the transports, it is equivalent to the mono
 It's the same way as the distributed mode in the basic example, with same expected results.
 
 ## Notes
-The default transport is located in `../../../transport/default/index.js` (relative to `api-config.json`), so it is equivalent in `api-config.json` to set this value (as it is currently set in the file) or let the field unset.
+The default transport is located in `../../../lib/transport/default/index.js` (relative to `api-config.json`), so it is equivalent in `api-config.json` to set this value (as it is currently set in the file) or let the field unset.
 
 On a "real use case", to set your transport you could use this kind of shortcut:
 ```
