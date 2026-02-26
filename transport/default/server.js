@@ -22,32 +22,26 @@ const requestBody = (req, req_max_size_bytes = 0) => new Promise((resolve, rejec
   });
 });
 
-const doTask = async ({task, input, api}) => {
-  const res = {
-    result: null,
-    error: null,
-  };
-
-  try {
-    res.result = await task(input, api);
-  } catch (err) {
-    res.error = err;
-  }
-
-  return res;
-};
-
-const rootPostRequestController = async ({req, res, api, req_max_size_bytes}) => {
+const rootPostRequestController = async ({
+  req,
+  res,
+  api,
+  req_max_size_bytes,
+  onRequest = (body, req) => body,
+  beforeResponseSent = (data) => data,
+}) => {
   const task_name = req.url.replace(/^\//, "");
   const task = api[task_name];
-  const body = await requestBody(req, req_max_size_bytes);
+  let input = await requestBody(req, req_max_size_bytes);
+  input = await onRequest(input, req);
 
-  const response_body = await doTask({task, api, input: body});
-  const response_body_str = JSON.stringify(response_body);
+  let result = await task(input);
+  result = await beforeResponseSent(result);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.end(response_body_str);
+  const result_serialized = JSON.stringify(result);
+  res.end(result_serialized);
 }
 
 const handleNotFound = (req, res) => {
@@ -60,6 +54,8 @@ export const shell = ({
   port = 3000,
   req_max_size_bytes = REQ_MAX_SIZE_BYTES,
   onReady = (port) => {},
+  onRequest,
+  beforeResponseSent,
 }) => {
   const tasks_urls = Object.keys(api).map((task_name) => "/" + task_name);
   const server = http.createServer(async (req, res) => {
@@ -67,13 +63,24 @@ export const shell = ({
       return handleNotFound(req, res);
     }
 
-    await rootPostRequestController({
-      req,
-      res,
-      api,
-      req_max_size_bytes,
-    });
+    try {
+      await rootPostRequestController({
+        req,
+        res,
+        api,
+        req_max_size_bytes,
+        onRequest,
+        beforeResponseSent,
+      });
+    } catch (error) {
+      res.statusCode = 200;
+      const err_label = error.toString ? error.toString() : "Unknown error";
+      const err_body = JSON.stringify({error: err_label});
+      res.end(err_body);
+    }
   });
 
   server.listen(port, () => onReady(port));
+
+  return server;
 }

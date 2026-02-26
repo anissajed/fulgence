@@ -1,0 +1,55 @@
+services:
+  a:
+    container_name: task-a
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/basic-with-auth
+    environment:
+      CHUNK_NAME: a
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/basic-with-auth
+    - ./api:/usr/src/examples/basic-with-auth/api
+    - ./package.json:/usr/src/examples/basic-with-auth/package.json
+    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
+    command: ["npm", "start"]
+    networks:
+      - webservice_splitter_network
+  b:
+    container_name: task-b
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/basic-with-auth
+    environment:
+      CHUNK_NAME: b
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/basic-with-auth
+    - ./api:/usr/src/examples/basic-with-auth/api
+    - ./package.json:/usr/src/examples/basic-with-auth/package.json
+    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
+    command: ["npm", "start"]
+    networks:
+      - webservice_splitter_network
+  c:
+    container_name: task-c
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/basic-with-auth
+    environment:
+      CHUNK_NAME: c
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/basic-with-auth
+    - ./api:/usr/src/examples/basic-with-auth/api
+    - ./package.json:/usr/src/examples/basic-with-auth/package.json
+    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
+    command: ["npm", "start"]
+    networks:
+      - webservice_splitter_network
+
+networks:
+  webservice_splitter_network:
