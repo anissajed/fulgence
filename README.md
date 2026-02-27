@@ -1,9 +1,9 @@
 # Webservice splitter
-In nodejs, provide a lightweight API that allows the same code to run in monolith mode or in distributed mode.
+In nodejs, provide a lightweight yet powerful API that allows the same code to run in a monolith or in distributed chunks in different services.
 
 Switching between the 2 modes is straightforward, e.g. you may drive it with an environment variable.
 
-The code is highly modulable (the lib itself and its default transport), to be easily adapted to various and precise needs.
+The code is highly modulable and can be enhanced with plugins, to be easily adapted to various and precise needs.
 
 ## Examples
 ```
@@ -16,23 +16,16 @@ The code is highly modulable (the lib itself and its default transport), to be e
     },
     "b": {
       "file": "./b.js",
-      "url": "http://localhost:3002"
+      "url": "http://localhost:3000"
     },
   }
 }
 
-// a.js
-export default async (input, api) => ({
-  ...(await api.b(input)),
-  a: "a",
-});
-
 // index.js
 const name = process.env.CHUNK_NAME;
-const config_path = new URL("./api-config.json", import.meta.url).pathname;
 const {api} = await entrypoint({
   name,
-  config_path,
+  config_path: new URL("./api-config.json", import.meta.url).pathname,
   port: process.env.PORT,
 });
 if (!name || name == "a") {
@@ -43,15 +36,12 @@ if (!name || name == "a") {
 // shell, distributed mode
 $ PORT=3000 CHUNK_NAME=b node ./index.js &
 $ PORT=3001 CHUNK_NAME=a node ./index.js &
-# Result: <depends on your tasks>
 
 // shell, monolith mode
 $ PORT=3002 node ./index.js &
-# Result: <depends on your tasks>
 ```
 
-### More examples, full examples
-Please see `examples` folder.
+For full working examples, please see `examples` folder.
 
 ## Warnings
 Currently, the inter-modules communication of the default transport serializes the calls results between modules calls with a "data" serialization, so there is no form of typing or prototyping on the received data. So if you typed the result in the called module, you have to re-type it in the calling module; pay attention if in your code you count on tricks like `if (call_result instanceof CustomClass)`.
@@ -103,15 +93,17 @@ It is the API passed to each module to allow them to call other modules - and it
 const res = await api.c(input);
 ```
 
+The shape of the api can be modified with the tasks lifecycle plugin, as shown in `examples/object-oriented-tasks`.
+
 ### config file
 TODO
 
 Currently, the config file can only be a JSON file.
 
-#### transport
+### transport
 TODO
 
-#### tasks lifecycle plugin
+### tasks lifecycle plugin
 This plugin must export `onInitTask` and `onDoTask`. Those two hooks are used in conjunction to customize the way a task is created and executed.
 
 `onInitTask` default: `async ({module, api}) => module.default`
@@ -121,5 +113,6 @@ This plugin must export `onInitTask` and `onDoTask`. Those two hooks are used in
 
 `onDoTask` is the way the task is executed. The returned value will be passed to the caller - modulo the potential transports middlewares.
 
-An illustration can be found in `examples/object-oriented-tasks`.
+A custom tasks lifecycle plugin can be found in `examples/object-oriented-tasks`.
 
+The plugin is set in the config file, see the "config file" section for more details.
