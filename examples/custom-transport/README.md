@@ -12,7 +12,9 @@ Next, install the example dependencies (in this directory): `npm install`.
 ## Run
 
 ### Monolith mode
-Since the monolith mode doesn't use the transports, it is equivalent to the monolith mode in the basic example.
+Since the monolith mode in this example mode doesn't use the transports, its result will be similar to the monolith mode in the basic example.
+
+If you want still to run it, you should prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
 
 ### Distributed mode
 ```

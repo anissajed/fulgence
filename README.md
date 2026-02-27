@@ -70,7 +70,7 @@ const {
   api, // returns a client to call the tasks. More details in "client api".
 } = await entrypoint({
   name, // module name (e.g. "a"), let undefined for monolith mode
-  config_path, // the path of the manifest, e.g. "/home/me/my-project/manifest.json"
+  config_path, // the path of the config file, e.g. "/home/me/my-project/config.json"
   port, // the port where you want this chunk (or monolith) to listen, e.g. 80
   onInitTask,
   onDoTask,
@@ -78,7 +78,7 @@ const {
 });
 ```
 
-Returned `server` object is your task(s)/chunk(s) server. It is returned essentially to allow you to hack it if you need to. It depends on the transport you choose in your manifest.
+Returned `server` object is your task(s)/chunk(s) server. It is returned essentially to allow you to hack it if you need to. It depends on the transport you choose in your config file.
 
 `<arbitrary args>` are transport-specific values to customize the server/shell; cf the documentation of your transport for more details.
 
@@ -100,13 +100,13 @@ called.
 import {buildApi} from "<this package>";
 const api = await buildApi({
   local_module_name, // module name (e.g. "a"), let undefined for monolith mode
-  config_path, // the path of the manifest, e.g. "/home/me/my-project/manifest.json"
+  config_path, // the path of the config file, e.g. "/home/me/my-project/api-config.json"
 });
 ```
 More details on the returned `api` object in `client api` section.
 
 ### client api
-It can call every module declared in the manifest. If the module is a local one, it's a direct call; else it's a remote call. The way it is done is as transparent as possible for the caller.
+It can call every module declared in the config file. If the module is a local one, it's a direct call; else it's a remote call. The way it is done is as transparent as possible for the caller.
 
 It is the API passed to each module to allow them to call other modules - and it is the same interface for chunks and monolith. It can be invoked "standalone" with `buildApi`. It is also returned by `entrypoint()`.
 
@@ -115,7 +115,7 @@ It is the API passed to each module to allow them to call other modules - and it
 const res = await api.c(input);
 ```
 
-### manifest
+### config file
 TODO
 
 #### transport

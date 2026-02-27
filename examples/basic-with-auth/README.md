@@ -12,7 +12,9 @@ After that, run `npm install` to install this example's packages.
 ## Run
 
 ### Monolith mode
-Since in this example the monolith mode does not use inter-modules authentication, it is equivalent to the monolith mode in the basic example.
+Since in this example the monolith mode does not use inter-modules authentication, its result will be similar to the monolith mode in the basic example.
+
+If you want still to run it, you should prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
 
 ### Distributed mode
 ```
