@@ -1,7 +1,5 @@
 {
-  "defaults": {
-    "transport": "../json-rpc-transport/index.js"
-  },
+  "transport": "../json-rpc-transport/index.js",
   "tasks": {
     "a": {
       "file": "../a.js",

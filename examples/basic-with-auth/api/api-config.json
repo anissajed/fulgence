@@ -1,7 +1,5 @@
 {
-  "defaults": {
-    "transport": "./transport.js"
-  },
+  "transport": "./transport.js",
   "tasks": {
     "a": {
       "file": "../a.js",
