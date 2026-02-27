@@ -5,6 +5,7 @@
   "main": "./index.js",
   "type": "module",
   "exports": {
+    "./default-tasks-lifecycle": "./lib/tasks-lifecycle/default/index.js",
     "./default-transport": "./lib/transport/default/index.js"
   },
   "scripts": {

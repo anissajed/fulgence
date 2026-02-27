@@ -8,7 +8,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic/api/api-config.json:/usr/src/examples/object-oriented-tasks/api/api-config.json
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network
@@ -21,7 +20,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic/api/api-config.json:/usr/src/examples/object-oriented-tasks/api/api-config.json
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network
@@ -34,7 +32,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic/api/api-config.json:/usr/src/examples/object-oriented-tasks/api/api-config.json
     command: ["npm", "start"]
     networks:
       - webservice_splitter_network

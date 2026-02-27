@@ -72,8 +72,6 @@ const {
   name, // module name (e.g. "a"), let undefined for monolith mode
   config_path, // the path of the config file, e.g. "/home/me/my-project/config.json"
   port, // the port where you want this chunk (or monolith) to listen, e.g. 80
-  onInitTask,
-  onDoTask,
   <arbitrary args>
 });
 ```
@@ -81,16 +79,6 @@ const {
 Returned `server` object is your task(s)/chunk(s) server. It is returned essentially to allow you to hack it if you need to. It depends on the transport you choose in your config file.
 
 `<arbitrary args>` are transport-specific values to customize the server/shell; cf the documentation of your transport for more details.
-
-#### onInitTask and onDoTask hooks
-`onInitTask` defaut: `async ({module, api}) => module.default`
-`onDoTask` defaut: `async ({task, input, api}) => task(input, api)`
-
-`onInitTask` runs just after the JS module containing the task is imported. It returns the initialized task (ready to be executed), and this task can have any type. The returned task is passed later to `onDoTask`.
-
-`onDoTask` is the way the task is executed. The returned value will be passed to the caller - modulo the potential transports middlewares.
-
-An illustration can be found in `examples/object-oriented-tasks`.
 
 ### buildApi
 `buildApi` is primarily used when you run the client on an executable where entrypoint() is not
@@ -118,6 +106,20 @@ const res = await api.c(input);
 ### config file
 TODO
 
+Currently, the config file can only be a JSON file.
+
 #### transport
 TODO
+
+#### tasks lifecycle plugin
+This plugin must export `onInitTask` and `onDoTask`. Those two hooks are used in conjunction to customize the way a task is created and executed.
+
+`onInitTask` default: `async ({module, api}) => module.default`
+`onDoTask` default: `async ({task, input, api}) => task(input, api)`
+
+`onInitTask` runs just after the JS module containing the task is imported. It returns the initialized task (ready to be executed), and this task can have any type. The returned task is passed later to `onDoTask`.
+
+`onDoTask` is the way the task is executed. The returned value will be passed to the caller - modulo the potential transports middlewares.
+
+An illustration can be found in `examples/object-oriented-tasks`.
 
