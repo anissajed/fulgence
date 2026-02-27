@@ -6,9 +6,11 @@ The default transport uses http webservers to communicate. The framework can use
 
 
 ## Prerequisites
-Please install the lib dependencies - something like `cd ../..; npm install`.
+First, ensure you have Docker installed (it will be used to run the example in the distributed mode).
 
-After that, install the example dependencies (in this directory): `npm install`.
+Then, install the lib dependencies - something like `cd ../..; npm install`.
+
+After that, don't forget to go again in this example folder to run it.
 
 ## Run
 

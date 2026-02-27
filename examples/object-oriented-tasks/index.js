@@ -7,7 +7,7 @@ if ([undefined, "", "a"].includes(process.env.CHUNK_NAME)) {
     const payload = {
       example: true,
     };
-    const res = await api.a(payload);
+    const res = await api.a.addAttributes(payload);
     console.log("Final result:", res);
   }, 2000);
 }
