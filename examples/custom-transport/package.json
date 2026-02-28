@@ -1,5 +1,5 @@
 {
-  "name": "webservice-splitter-example-custom-transport",
+  "name": "fulgence-example-custom-transport",
   "version": "1.0.0",
   "description": "",
   "main": "./index.js",

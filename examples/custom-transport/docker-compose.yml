@@ -15,7 +15,7 @@ services:
     - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
-      - webservice_splitter_network
+      - fulgence_network
   b:
     container_name: task-b
     image: "node:21-alpine"
@@ -32,7 +32,7 @@ services:
     - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
-      - webservice_splitter_network
+      - fulgence_network
   c:
     container_name: task-c
     image: "node:21-alpine"
@@ -49,7 +49,7 @@ services:
     - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
-      - webservice_splitter_network
+      - fulgence_network
 
 networks:
-  webservice_splitter_network:
+  fulgence_network:

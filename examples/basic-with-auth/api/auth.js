@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const {SECRET} = process.env;
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
-const PROVIDER = "webservice-splitter";
+const PROVIDER = "fulgence";
 
 const generateToken = ({sub}) => jwt.sign({
   iat: new Date().getTime(),

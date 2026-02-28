@@ -1,6 +1,6 @@
 import {auth_plugin} from "./auth-plugin.js";
 /* In a "real world" situation, you would rather use something like:
- * import * as transport from "<this package>/default-transport";
+ * import * as transport from "fulgence/default-transport";
  */
 import * as transport from "../../../lib/transport/default/index.js";
 
