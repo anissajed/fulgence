@@ -1,143 +1,116 @@
-# Flugence
-In Node.js, provide a lightweight yet powerful API that allows the same code to run in a monolith or in distributed chunks in different services.
+# Fulgence
+Run the same Node.js modules either as a single process or as distributed services — without rewriting your business code.
 
-Switching between the 2 modes is straightforward, e.g. you may drive it with an environment variable.
+Fulgence decouples **module boundaries** from **deployment boundaries**, allowing you to switch execution modes at runtime while keeping your codebase unchanged.
 
-The code is highly modular and can be enhanced with plugins, to be easily adapted to various and precise needs.
+Ideal for teams migrating from monolith to microservices — or who want to keep both options open.
 
-## Examples
+## Features
+- Run modules as monolith or distributed services
+- Runtime execution mode switching
+- Transport-agnostic core
+- Plugin-based extensibility
+- Progressive monolith-to-microservices migration
+
+## Installation
 ```
-// api-config.json
-{
-  "tasks": {
-    "a": {
-      "file": "./a.js",
-      "url": "http://task-a:3001"
-    },
-    "b": {
-      "file": "./b.js",
-      "url": "http://localhost:3000"
-    },
-  }
-}
+npm install fulgence
+```
 
-// index.js
+## Quick Start
+The example below demonstrates how the same entrypoint can run either as a monolith or as distributed services depending on environment variables.
+
+```js
+import entrypoint from "fulgence";
+
 const name = process.env.CHUNK_NAME;
 const {api} = await entrypoint({
-  name,
-  config_path: new URL("./api-config.json", import.meta.url).pathname,
+  name, // undefined => monolith mode
+  config_path: new URL("./api-config.json", import.meta.url).pathname, // fulgence config file
   port: process.env.PORT,
 });
+
+// Trigger the initial call from a single module
 if (!name || name == "a") {
   const result = await api.a({"arg": "initial argument"});
   console.log("Result:", result);
 }
+```
 
-// shell, distributed mode
+Distributed mode:
+```bash
 $ PORT=3000 CHUNK_NAME=b node ./index.js &
 $ PORT=3001 CHUNK_NAME=a node ./index.js &
+```
 
-// shell, monolith mode
+Monolith mode:
+```bash
 $ PORT=3002 node ./index.js &
 ```
 
-For full working examples, please see the `examples` folder.
+See the `examples/` directory for complete working setups.
 
-## Motivations
-Nowadays SOA is an architectural choice for many projects; however monoliths still have a strong place, due to their simplicity. Some kind of compromises appear, such as distributed monoliths, but they have failed to appear as a consensual solution. This module aims to easily switch between SOA and monolith - in terms of "true services"/executables - to allow getting the best of each world, depending on the situation.
+## How it works
+Fulgence introduces a thin execution layer around your modules.
 
-One use case is when you (as a developer) migrated your backend monolith to (micro?)services and are happy with the benefits; but as the number of your services grows, the memory footprint of your app does the same. This is not an issue in your deployment environment, but your development machine is different (for those who have not exported their development to the cloud). When you check the causes, you see that your local Kubernetes/Docker-compose/whatever container orchestration solution does its job well with lightweight containers. However, the multiplication of your containers also multiplies your Node.js executables (~50MB footprint?) and the dependencies loaded in total (typically between 50MB and 500MB per service, depending on your project and your dev tools).
+At runtime, each module can either:
 
-For an e.g. 8-microservices app - a medium-sized mature app IMHO - with an average 150MB/service dependencies memory footprint, we may have a difference of 1.4GB. For some this is not an issue (pro developers may have 32GB machines), but for others it can be an issue: in the time to start the whole app, to limit the costs of your cloud dev environment, etc.
+- Execute locally (monolith mode), or
+- Be exposed as a service and invoked remotely (distributed mode).
 
-Another situation is the monolith -> SOA migration itself: there is a development cost on the modules inter-connection feature, that can be reduced or avoided simply by using this package from the start of the migration.
+The selection is controlled dynamically (for example, through environment variables).
 
-Once the main goal of this framework was clear, I wanted it to be lean and unopinionated. It is a 0-dependencies package that is compatible with the main JS coding styles, a priori all popular transport technologies (RESTful calls, RPC, events, etc.), popular architectures (DDD, SOA, EDA, etc.) and the common backend features and technologies (e.g. authentication), thanks to the plugins systems.
+The core is transport-agnostic and can be extended via plugins, allowing custom communication strategies and execution lifecycles.
 
-### Good practices
-Another advantage is: "Defer the actual decision until a decision can be made more responsibly, based on actual knowledge, but not so late that it is not possible to take advantage of that knowledge." This package aims to defer which code is run on which executable/service/container, the "executable boundaries" within your project. Note these are not the "module boundaries" you can have in a Dependency Injection framework such as NestJS, thus you can e.g. run together Flugence and NestJS without bad interference.
+## Why Fulgence?
 
-### About the name
-Fulgence Bienvenüe directed the development of the Paris Metro, combining centralized planning and shared standards with independently operating lines. This framework adopts his (first) name to reflect the same principle: a system that can run as a single unit or as coordinated services.
+Modern architectures evolve. Teams often start with a monolith and later adopt microservices — or need both depending on the environment.
 
-## Warnings and limitations
-### Transport-specific limitations
-Currently, the inter-modules communication of the default transport serializes the call results between module calls with a "data" serialization, so there is no form of typing or prototyping on the received data. So if you typed the result in the called module, you have to re-type it in the calling module; pay attention if in your code you rely on things like `if (call_result instanceof CustomClass)`.
+Fulgence lets you:
 
-Also, transports have their own limitations, please see the documentation of the transport you use. The default transport documentation is located in `transport/default/README.md`.
+### Develop microservices without local overhead
+Running multiple services locally increases memory usage, startup time, and operational complexity.
 
-### Youthful flaws
-At the time of writing (Feb. 26) this package is still "young", and may be improved in the future with strategic features.
+With Fulgence, you can develop everything as a single process while keeping true service boundaries in production.
 
-One candidate is a task-dedicated shell: as of now it is easily possible by writing your own transport shell and passing options to the entry point, but this is not strongly and explicitly supported by the package itself.
+### Migrate progressively from monolith to services
+Extracting services from a monolith usually requires rewriting communication layers.
 
-An issue still in mind is to find a graceful way to avoid multiplying the service-specific dependencies. The best solution as of now is to maintain one `package.json` per service — as (indirectly) advised by microservice good practices.
+Fulgence introduces service boundaries without forcing you to rewrite business modules.
+
+### Keep architectural flexibility
+Executable boundaries are configurable at runtime.
+
+Your code structure stays stable while your deployment model evolves.
 
 ## API
+Please refer to `docs/api.md` .
 
-### entrypoint
-`entrypoint()` accepts hooks, to customise the way a task is initialized and called. Thus, you can choose to write a task in functional or object-oriented style, add global error handling, etc.
-
-```
-import entrypoint from "fulgence";
-const {
-  server,
-  api, // returns a client to call the tasks. More details in "client api".
-} = await entrypoint({
-  name, // module name (e.g. "a"), let undefined for monolith mode
-  config_path, // the path of the config file, e.g. "/home/me/my-project/config.json"
-  port, // the port where you want this chunk (or monolith) to listen, e.g. 80
-  <arbitrary args>
-});
-```
-
-Returned `server` object is your task(s)/chunk(s) server. It is returned essentially to allow you to hack it if you need to. It depends on the transport you choose in your config file.
-
-`<arbitrary args>` are transport-specific values to customize the server/shell; cf the documentation of your transport for more details.
-
-### buildApi
-`buildApi` is primarily used when you run the client on an executable where entrypoint() is not
-called.
-
-```
-import {buildApi} from "fulgence";
-const api = await buildApi({
-  local_module_name, // module name (e.g. "a"), let undefined for monolith mode
-  config_path, // the path of the config file, e.g. "/home/me/my-project/api-config.json"
-});
-```
-More details on the returned `api` object in `client api` section.
-
-### client api
-It can call every module declared in the config file. If the module is a local one, it's a direct call; else it's a remote call. The way it is done is as transparent as possible for the caller.
-
-It is the API passed to each module to allow them to call other modules - and it is the same interface for chunks and monolith. It can be invoked "standalone" with `buildApi`. It is also returned by `entrypoint()`.
-
-```
-// Call task/chunk "b" with some input arg:
-const res = await api.c(input);
-```
-
-The shape of the api can be modified with the tasks lifecycle plugin, as shown in `examples/object-oriented-tasks`.
-
-### config file
+## Contributing
 TODO
 
-Currently, the config file can only be a JSON file.
+## Warnings and limitations
+### Transport serialization
+The default transport serializes call results as plain data.  
+Type information and prototypes are not preserved across module boundaries.
 
-### transport
-TODO
+If your code relies on constructs such as:
 
-### tasks lifecycle plugin
-This plugin must export `onInitTask` and `onDoTask`. Those two hooks are used in conjunction to customize the way a task is created and executed.
+```js
+instanceof CustomClass
+```
 
-`onInitTask` default: `async ({module, api}) => module.default`
-`onDoTask` default: `async ({task, input, api}) => task(input, api)`
+you must handle reconstruction manually.
 
-`onInitTask` runs just after the JS module containing the task is imported. It returns the initialized task (ready to be executed), and this task can have any type. The returned task is passed later to `onDoTask`.
+Refer to the transport documentation for more details. The default transport documentation is located in `transport/default/README.md`.
 
-`onDoTask` is the way the task is executed. The returned value will be passed to the caller - modulo the potential transports middlewares.
+### Roadmap considerations
+Some features are still evolving.
 
-A custom tasks lifecycle plugin can be found in `examples/object-oriented-tasks`.
+For example, a task-dedicated shell syntax in the config file may be introduced in future versions.
 
-The plugin is set in the config file, see the "config file" section for more details.
+Managing service-specific dependencies is also under consideration.  
+Currently, maintaining one `package.json` per service is recommended.
+
+## About the name
+Fulgence Bienvenüe directed the development of the Paris Metro, combining centralized planning and shared standards with independently operating lines. This package adopts his (first) name to reflect the same principle: a system that can run as a single unit or as coordinated services.

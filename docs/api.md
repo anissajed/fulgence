@@ -1,0 +1,69 @@
+## API
+
+### entrypoint
+`entrypoint()` accepts hooks, to customise the way a task is initialized and called. Thus, you can choose to write a task in functional or object-oriented style, add global error handling, etc.
+
+```
+import entrypoint from "fulgence";
+const {
+  server,
+  api, // returns a client to call the tasks. More details in "client api".
+} = await entrypoint({
+  name, // module name (e.g. "a"), let undefined for monolith mode
+  config_path, // the path of the config file, e.g. "/home/me/my-project/config.json"
+  port, // the port where you want this chunk (or monolith) to listen, e.g. 80
+  <arbitrary args>
+});
+```
+
+Returned `server` object is your task(s)/chunk(s) server. It is returned essentially to allow you to hack it if you need to. It depends on the transport you choose in your config file.
+
+`<arbitrary args>` are transport-specific values to customize the server/shell; cf the documentation of your transport for more details.
+
+### buildApi
+`buildApi` is primarily used when you run the client on an executable where entrypoint() is not
+called.
+
+```
+import {buildApi} from "fulgence";
+const api = await buildApi({
+  local_module_name, // module name (e.g. "a"), let undefined for monolith mode
+  config_path, // the path of the config file, e.g. "/home/me/my-project/api-config.json"
+});
+```
+More details on the returned `api` object in `client api` section.
+
+### client api
+It can call every module declared in the config file. If the module is a local one, it's a direct call; else it's a remote call. The way it is done is as transparent as possible for the caller.
+
+It is the API passed to each module to allow them to call other modules - and it is the same interface for chunks and monolith. It can be invoked "standalone" with `buildApi`. It is also returned by `entrypoint()`.
+
+```
+// Call task/chunk "b" with some input arg:
+const res = await api.c(input);
+```
+
+The shape of the api can be modified with the tasks lifecycle plugin, as shown in `examples/object-oriented-tasks`.
+
+### config file
+TODO
+
+Currently, the config file can only be a JSON file.
+
+### transport
+TODO
+
+### tasks lifecycle plugin
+This plugin must export `onInitTask` and `onDoTask`. Those two hooks are used in conjunction to customize the way a task is created and executed.
+
+`onInitTask` default: `async ({module, api}) => module.default`
+`onDoTask` default: `async ({task, input, api}) => task(input, api)`
+
+`onInitTask` runs just after the JS module containing the task is imported. It returns the initialized task (ready to be executed), and this task can have any type. The returned task is passed later to `onDoTask`.
+
+`onDoTask` is the way the task is executed. The returned value will be passed to the caller - modulo the potential transports middlewares.
+
+A custom tasks lifecycle plugin can be found in `examples/object-oriented-tasks`.
+
+The plugin is set in the config file, see the "config file" section for more details.
+
