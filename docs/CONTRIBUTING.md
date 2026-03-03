@@ -1,12 +1,12 @@
 # Contributing
-Hi! I'm really excited that you are interested in contributing to Flugent. This project is open to, and grateful for, any contributions made by the community.
+Hi! I'm really excited that you are interested in contributing to Fulgence. This project is open to, and grateful for, any contributions made by the community.
 
 ## Design principles
 > Defer the decision until it can be made responsibly, based on real knowledge — but not so late that you cannot benefit from that knowledge.
 
-Flugence separates **module boundaries** from **executable boundaries**.
+Fulgence separates **module boundaries** from **executable boundaries**.
 
-Modules define logical architecture.  
+Modules define logical architecture.
 Executables define runtime deployment.
 
 This separation allows you to change deployment strategy without restructuring your codebase.

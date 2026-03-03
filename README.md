@@ -91,7 +91,7 @@ TODO
 
 ## Warnings and limitations
 ### Transport serialization
-The default transport serializes call results as plain data.  
+The default transport serializes call results as plain data.
 Type information and prototypes are not preserved across module boundaries.
 
 If your code relies on constructs such as:
@@ -109,7 +109,7 @@ Some features are still evolving.
 
 For example, a task-dedicated shell syntax in the config file may be introduced in future versions.
 
-Managing service-specific dependencies is also under consideration.  
+Managing service-specific dependencies is also under consideration.
 Currently, maintaining one `package.json` per service is recommended.
 
 ## About the name

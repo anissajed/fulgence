@@ -3,7 +3,7 @@ The default transport is built on top of a minimal HTTP layer:
 - A lean `POST` request on the client side
 - A vanilla Node.js HTTP server on the server side
 
-It is primarily intended for illustration and experimentation.  
+It is primarily intended for illustration and experimentation.
 It is **not production-ready**.
 
 Despite its simplicity, it is highly extensible through a well-defined hook system.

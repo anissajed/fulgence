@@ -140,7 +140,7 @@ Path (relative to the config file) to the task/module implementation.
 Used when the task is loaded locally.
 
 ##### `tasks.<task>.url`
-Remote URL from the caller’s perspective of the task/module when running in distributed mode.  
+Remote URL from the caller’s perspective of the task/module when running in distributed mode.
 Used when the task is not loaded locally.
 
 ##### `tasks_lifecycle` (optional)
@@ -150,7 +150,7 @@ Path (relative to the config file) to a Tasks Lifecycle Plugin.
 Path (relative to the config file) to a Transport Plugin.
 
 #### Notes
-Currently, the configuration file must be JSON.  
+Currently, the configuration file must be JSON.
 Support for additional formats (e.g. JS, YAML) may be added in the future.
 
 ---
@@ -159,7 +159,9 @@ Support for additional formats (e.g. JS, YAML) may be added in the future.
 The Transport Plugin defines how inter-task communication works in distributed mode.
 It is also responsible for declaring the server implementation in monolith mode.
 
-By default, it is the combination of a (fetch) POST call with a vanilla nodejs server.
+The default transport is the combination of a (fetch) POST call with a vanilla nodejs server.
+
+Fulgence is transport-agnostic: you may implement your own server layer (e.g. Express, gRPC, NestJS) along with a compatible client.
 
 #### Custom Transport: Transport Plugin
 A transport plugin must export two hooks:
