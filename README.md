@@ -86,6 +86,12 @@ Your code structure stays stable while your deployment model evolves.
 ## API
 Please refer to `docs/api.md` .
 
+## tests
+The integration tests use Docker Compose (more precisely the docker compose files from the examples), check you installed Docker before running the tests.
+
+To run the tests: `npm run test`
+
+npx vitest
 ## Contributing
 TODO
 
