@@ -21,7 +21,7 @@ npm install fulgence
 The example below demonstrates how the same entrypoint can run either as a monolith or as distributed services depending on environment variables.
 
 ```js
-import entrypoint from "fulgence";
+import {entrypoint} from "fulgence";
 
 const name = process.env.CHUNK_NAME;
 const {api} = await entrypoint({

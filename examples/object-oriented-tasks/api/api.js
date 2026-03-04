@@ -1,4 +1,4 @@
-import entrypoint from "../../../index.js";
+import {entrypoint} from "../../../index.js";
 import {objectOrientedApi} from "./oo-api.js";
 
 const {CHUNK_NAME: name, PORT: port = 3010} = process.env;

@@ -3,7 +3,7 @@
 ### `entrypoint()`
 `entrypoint()` bootstraps a task/module - or all the tasks/modules for a monolith.
 ```ts
-import entrypoint from "fulgence";
+import {entrypoint} from "fulgence";
 
 const {
   server,
