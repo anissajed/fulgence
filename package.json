@@ -9,16 +9,18 @@
     "./default-transport": "./lib/transport/default/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "npx vitest"
   },
   "author": "Anis SAJED",
   "license": "ISC",
-  "engines" : {
-    "node" : ">=12.0.0"
+  "engines": {
+    "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.19.3",
-    "node-fetch": "^3.3.2",
-    "typescript": "^4.9.5"
+    "eslint": "^9.39.3",
+    "globals": "^17.4.0",
+    "typescript-eslint": "^8.56.1",
+    "vite": "^7.3.1"
   }
 }
