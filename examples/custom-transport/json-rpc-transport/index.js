@@ -1,2 +1,4 @@
-export {clientFactory} from './client.js';
-export {shell} from './server/index.js';
+import {clientFactory} from "./client.js";
+import {shell} from "./server/index.js";
+
+export default {clientFactory, shell};
