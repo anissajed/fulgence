@@ -4,7 +4,7 @@ const name = process.env.CHUNK_NAME;
 const header_name = "authorization";
 
 export const auth_plugin = {
-  beforeRequest: async ({body, fetch_opts = {}, dest_opts}) => {
+  beforeRequest: async ({body, fetch_opts, dest_opts}) => {
     const jwt = await generateJWT({sub: name});
     fetch_opts.headers = {
       ...(fetch_opts.headers || {}),
