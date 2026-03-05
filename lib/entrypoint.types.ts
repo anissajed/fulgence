@@ -3,7 +3,6 @@ import {
   AnyServer,
   ArbitraryArgsShellOpts,
   PortShellOpt,
-  ShellOpts,
 } from "./transport/types";
 
 type EntrypointOpts = {

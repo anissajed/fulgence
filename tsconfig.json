@@ -13,12 +13,20 @@
       "strict": false,
       "forceConsistentCasingInFileNames": true,
       "module": "ESNext",
-      "moduleResolution": "Node",
+      "moduleResolution": "bundler",
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-  "exclude": ["node_modules", "dist", "build"],
-  "types": ["vite-plugin-pwa/client"]
+  "include": ["**/*.ts", "**/*.js"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "*.config.js",
+    "examples/basic",
+    "examples/basic-with-auth",
+    "examples/custom-transport",
+    "examples/object-oriented-tasks",
+  ],
 }

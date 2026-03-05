@@ -10,7 +10,7 @@ import bodyParser from "body-parser";
 const errorHandler = function(err, req, res, next) {
   console.log("Catched express error:");
   console.error(err);
-  let {message, stack, status} = err;
+  const {message, stack, status} = err;
   const error_html = JSON.stringify({message, stack, status}, null, 0);
 
   res.status(err.status || 500);

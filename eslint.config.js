@@ -1,21 +1,24 @@
 import globals from "globals";
-import tsEslint from "typescript-eslint";
+import tseslint from "typescript-eslint";
 
 export default {
   languageOptions: {
+    parser: tseslint.parser,
     parserOptions: {
       sourceType: "module",
       ecmaVersion: 2025,
     },
     globals: {
       ...globals.node,
+      "RequestInit": true,
+      "RequestInfo": true,
     },
   },
   plugins: {
-    tsEslint,
+    '@typescript-eslint': tseslint.plugin,
   },
   files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-  ignores: ["node_modules/**", "dist/**", 'package-lock.json'],
+  ignores: ["node_modules/**", "dist/**", "package-lock.json"],
   rules: {
     "no-var": "warn",
     "object-shorthand": ["warn", "properties"],

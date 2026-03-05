@@ -14,7 +14,7 @@ export const auth_plugin = {
   },
   onRequest: async (data, req) => {
     const auth_header = req.headers?.[header_name] || "";
-    const token = auth_header.replace(/^Bearer\ /, "");
+    const token = auth_header.replace(/^Bearer /, "");
     await verifyJWT(token);
     console.log(`On chunk ${name}, successfully verified the caller's JWT`);
 

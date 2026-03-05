@@ -1,6 +1,5 @@
 import {expect, it, beforeAll, afterAll} from "vitest"
 import {DockerComposeEnvironment, Wait} from "testcontainers"
-import path from "path"
 
 /** @typedef {import("./utils.types").StartDCFAndWaitForLog} StartDCFAndWaitForLog */
 /** @type StartDCFAndWaitForLog */
@@ -33,6 +32,13 @@ export const stopDCF = async ({environment}) => {
   }
 }
 
+
+const onErrorFactory = ({timeout_id, stream, reject}) => (err) => {
+  clearTimeout(timeout_id)
+  stream.destroy()
+  reject(err)
+};
+
 /** @typedef {import("./utils.types").WaitLogContaining} WaitLogContaining */
 /** @type WaitLogContaining */
 export const waitLogContaining = async function (
@@ -46,26 +52,22 @@ export const waitLogContaining = async function (
     let logs = ""
     let found = false;
 
-    const timeout = setTimeout(() => {
+    const timeout_id = setTimeout(() => {
       stream.destroy()
       reject(new Error("Timeout waiting for log"))
     }, timeout_ms)
 
-    stream.on("data", chunk => {
-      const line = chunk.toString()
+    stream.on("data", (chunk) => {
       logs += chunk.toString()
       if (!found && logs.includes(text)) {
         found = true;
-        clearTimeout(timeout)
+        clearTimeout(timeout_id)
         stream.destroy()
         return resolve(logs);
       }
     })
 
-    stream.on("error", err => {
-      clearTimeout(timeout)
-      reject(err)
-    })
+    stream.on("error", onErrorFactory({timeout_id, stream, reject}))
   })
 }
 
@@ -102,20 +104,13 @@ export const testDCFAgainstString = ({
         dcf_basename,
         service,
         text,
-      })
+      });
     }, 60_000)
 
-    afterAll(async () => {
-      await stopDCF({environment})
-    })
-
+    afterAll(() => stopDCF({environment}))
 
     it("should find the result in logs", async () => {
-      await expectLogFromContainer({
-        environment,
-        container_name,
-        text,
-      });
+      await expectLogFromContainer({environment, container_name, text});
     })
   }
 }
