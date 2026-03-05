@@ -23,6 +23,7 @@ Install project dependencies and build it:
 ```bash
 git clone ...; cd fulgence;
 npm install
+npm run build
 ```
 
 ## Quick Start

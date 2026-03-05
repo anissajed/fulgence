@@ -1,6 +1,10 @@
+// @ts-ignore
 import http from "http";
+// @ts-ignore
 import express from "express";
+// @ts-ignore
 import morgan from "morgan";
+// @ts-ignore
 import bodyParser from "body-parser";
 
 const errorHandler = function(err, req, res, next) {

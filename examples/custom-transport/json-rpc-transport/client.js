@@ -1,3 +1,4 @@
+// @ts-ignore
 import jayson from "jayson/promise/lib/index.js";
 
 export const clientFactory = ({name, url}) => async (opts) => {

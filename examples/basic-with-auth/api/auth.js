@@ -1,3 +1,4 @@
+// @ts-ignore
 import jwt from "jsonwebtoken";
 
 const {SECRET} = process.env;

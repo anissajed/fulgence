@@ -15,7 +15,7 @@ Despite its simplicity, it is highly extensible through a well-defined hook syst
 Creates the HTTP server hosting the task(s).
 
 ```ts
-type Server = any;
+type Server = unknown;
 type shell = ({port: number}) => Promise<Server>
 ```
 
@@ -36,8 +36,8 @@ async function clientFactory({name, url}) {
 }
 ```
 ```ts
-type ModuleRequest = (request_args: any) => Promise<any>;
-type shell = ({name: string, url: URL|string}) => ModuleRequest;
+type ModuleRequest = (request_args: unknown) => Promise<unknown>;
+type ClientFactory = ({name: string, url: URL|string}) => ModuleRequest;
 ```
 
 - `name` — The name of the called task/module (from the config file).
@@ -71,7 +71,7 @@ They can be used symmetrically on the client (caller) and server (called) sides.
 #### `beforeRequest`
 Default:
 ```ts
-async ({request_args, fetch_opts, dest_opts}) => ({request_args, fetch_opts})
+async ({body, fetch_opts, dest_opts}) => ({body, fetch_opts})
 ```
 
 Executed on the **client side** (the "caller" part of the transport).

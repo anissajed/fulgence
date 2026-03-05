@@ -5,13 +5,14 @@
   "main": "./index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "cleanup": "sh ./bin/test-fulgence-symlink.sh",
+    "start": "npm run cleanup; node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fulgence": "../..",
+    "fulgence": "file:../..",
     "jsonwebtoken": "^9.0.2"
   }
 }

@@ -2,14 +2,25 @@
   "name": "fulgence",
   "version": "1.0.0",
   "description": "",
-  "main": "./index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
     "./default-tasks-lifecycle": "./lib/tasks-lifecycle/default/index.js",
     "./default-transport": "./lib/transport/default/index.js"
   },
   "scripts": {
+    "build": "tsc --p ./tsconfig.json; vite build",
     "lint": "eslint .",
+    "prepublishOnly": "npm run build",
     "test": "npx vitest"
   },
   "author": "Anis SAJED",
@@ -20,8 +31,11 @@
   "devDependencies": {
     "eslint": "^9.39.3",
     "globals": "^17.4.0",
+    "rollup-plugin-node-externals": "^8.1.2",
     "testcontainers": "^11.12.0",
     "typescript-eslint": "^8.56.1",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.18"
   }
 }

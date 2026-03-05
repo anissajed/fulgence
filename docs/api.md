@@ -210,7 +210,7 @@ The plugin is declared in the configuration file (see the **Config File** sectio
 #### `onInitTask`
 Default behavior:
 ```ts
-onInitTask: async ({module, api}) => module.default
+onInitTask: async ({module, api}) => module
 ```
 
 - Runs immediately after the task/module is imported.

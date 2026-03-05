@@ -1,3 +1,4 @@
+// @ts-ignore
 import jayson from "jayson";
 
 const prepareRequest = ({req: {body}}) => body;

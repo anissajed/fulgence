@@ -2,6 +2,8 @@ import {expect, it, beforeAll, afterAll} from "vitest"
 import {DockerComposeEnvironment, Wait} from "testcontainers"
 import path from "path"
 
+/** @typedef {import("./utils.types").StartDCFAndWaitForLog} StartDCFAndWaitForLog */
+/** @type StartDCFAndWaitForLog */
 export const startDCFAndWaitForLog = async ({
   dcf_dirname = __dirname,
   dcf_basename = "docker-compose.yml",
@@ -15,11 +17,15 @@ export const startDCFAndWaitForLog = async ({
     )
     .up()
 
+  // @ts-ignore
   return environment;
 }
 
+/** @typedef {import("./utils.types").StopDCF} StopDCF */
+/** @type StopDCF */
 export const stopDCF = async ({environment}) => {
   if (environment) {
+    // @ts-ignore
     await environment.down({
       removeVolumes: true,
       timeout: 10_000,
@@ -27,6 +33,8 @@ export const stopDCF = async ({environment}) => {
   }
 }
 
+/** @typedef {import("./utils.types").WaitLogContaining} WaitLogContaining */
+/** @type WaitLogContaining */
 export const waitLogContaining = async function (
   container,
   text,
@@ -61,18 +69,23 @@ export const waitLogContaining = async function (
   })
 }
 
+/** @typedef {import("./utils.types").ExpectLogFromContainer} ExpectLogFromContainer */
+/** @type ExpectLogFromContainer */
 export const expectLogFromContainer = async ({
   environment,
   container_name,
   text,
   timeout = 10000,
 }) => {
+  // @ts-ignore
   const container = environment.getContainer(container_name)
 
   const logs = await waitLogContaining(container, text, timeout);
-  expect(logs).toContain(text)
+  expect(logs).toContain(text);
 }
 
+/** @typedef {import("./utils.types").TestDCFAgainstString} TestDCFAgainstString */
+/** @type TestDCFAgainstString */
 export const testDCFAgainstString = ({
   dcf_dirname,
   dcf_basename,
