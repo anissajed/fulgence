@@ -26,6 +26,3 @@ task-c  | On chunk c, successfully verified the caller's JWT
 task-c  | Run module c on chunk "c"
 task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
 ```
-
-## Notes
-The default transport is easily importable; if you put `export transport from "fulgence/default-transport"` in a file `./api/default-transport.js` is equivalent in the config file to set this path in the `transport:` field or let the field unset.

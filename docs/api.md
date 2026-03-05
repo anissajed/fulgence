@@ -159,11 +159,42 @@ Support for additional formats (e.g. JS, YAML) may be added in the future.
 The Transport Plugin defines how inter-task communication works in distributed mode.
 It is also responsible for declaring the server implementation in monolith mode.
 
-The default transport is the combination of a (fetch) POST call with a vanilla nodejs server.
-
 Fulgence is transport-agnostic: you may implement your own server layer (e.g. Express, gRPC, NestJS) along with a compatible client.
 
-#### Custom Transport: Transport Plugin
+#### Default Transport plugin
+The default transport is the combination of a (fetch) POST call with a vanilla nodejs server.
+
+The 2 following ways to use the default transport are equivalent:
+
+```
+// Standard configuration
+
+// api-config.json (configuration file)
+{
+  "tasks": {
+    ...
+  } 
+}
+```
+
+```
+// Explicit configuration
+
+// default-transport.js
+export {default} from "fulgence/default-transport";
+
+// api-config.json (configuration file)
+{
+  "transport": "./default-transport.js",
+  "tasks": {
+    ...
+  } 
+}
+```
+
+More documentation about the default transport can be found in `../transport/default/README.md`.
+
+#### Custom Transport Plugin
 A transport plugin must export two hooks:
 
 - `shell()`
