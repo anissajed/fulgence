@@ -1,8 +1,8 @@
-import { expect, it, beforeAll, afterAll } from "vitest"
-import { DockerComposeEnvironment, Wait, StartedTestContainer } from "testcontainers"
+import {expect, it, beforeAll, afterAll} from "vitest"
+import {DockerComposeEnvironment, Wait} from "testcontainers"
 import path from "path"
 
-const startDCFAndWaitForLog = async ({
+export const startDCFAndWaitForLog = async ({
   dcf_dirname = __dirname,
   dcf_basename = "docker-compose.yml",
   service,
@@ -18,7 +18,7 @@ const startDCFAndWaitForLog = async ({
   return environment;
 }
 
-const stopDCF = async ({environment}) => {
+export const stopDCF = async ({environment}) => {
   if (environment) {
     await environment.down({
       removeVolumes: true,
@@ -27,14 +27,14 @@ const stopDCF = async ({environment}) => {
   }
 }
 
-const waitLogContaining = async function (
-  container: StartedTestContainer,
-  text: string,
-  timeout_ms = 10000
+export const waitLogContaining = async function (
+  container,
+  text,
+  timeout_ms = 20000
 ) {
-  const stream = await container.logs({ follow: true })
+  const stream = await container.logs()
 
-  return new Promise<void>((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let logs = ""
     let found = false;
 
@@ -61,7 +61,7 @@ const waitLogContaining = async function (
   })
 }
 
-const expectLogFromContainer = async ({
+export const expectLogFromContainer = async ({
   environment,
   container_name,
   text,
@@ -80,7 +80,7 @@ export const testDCFAgainstString = ({
   container_name,
   text,
 }) => {
-  let environment: DockerComposeEnvironment
+  let environment;
 
   return () => {
     beforeAll(async () => {
@@ -100,7 +100,7 @@ export const testDCFAgainstString = ({
     it("should find the result in logs", async () => {
       await expectLogFromContainer({
         environment,
-        container_name: "task-a",
+        container_name,
         text,
       });
     })
