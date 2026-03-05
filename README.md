@@ -13,8 +13,16 @@ Ideal for teams migrating from monolith to microservices — or who want to keep
 - Progressive monolith-to-microservices migration
 
 ## Installation
+### from NPM
 ```
 npm install fulgence
+```
+
+### from git repo
+Install project dependencies and build it:
+```bash
+git clone ...; cd fulgence;
+npm install
 ```
 
 ## Quick Start

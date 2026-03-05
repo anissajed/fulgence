@@ -1,9 +1,10 @@
 # Object-oriented tasks example
-
 This example shows you how to change the wrinting style of your tasks.
 
 ## Prerequisites
-Please see first the Prerequisites for the basic example.
+Install Fulgence, as described in the package README.
+
+Then, do `npm install` in this directory to link the package.
 
 ## Run
 

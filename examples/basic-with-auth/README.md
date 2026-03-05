@@ -1,5 +1,4 @@
 # Basic example with authentication
-
 This example shows you how to add auth with the default transport in distributed mode. It is based on the basic example.
 
 Note that if you change the transport, the protection of the inter-modules communication will be configured differently; please see the documentation of each transport.

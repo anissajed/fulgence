@@ -19,13 +19,8 @@ It is built around three tasks/modules:
 
 ## Prerequisites
 1. **Docker** must be installed (used for distributed mode).
-2. Install project dependencies from the repository root:
-```bash
-cd ../..
-npm install
-```
-
-3. Then return to this example directory before running it.
+2. Install Fulgence, as described in the package README.
+3. Then return to this example directory and link the package with `npm install`.
 
 ---
 

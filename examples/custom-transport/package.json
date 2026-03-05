@@ -13,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^5.1.0",
+    "fulgence": "../..",
     "jayson": "^4.2.0",
     "morgan": "^1.10.0"
   }
