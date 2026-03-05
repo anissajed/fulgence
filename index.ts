@@ -11,12 +11,4 @@ export type {
   Shell,
   Transport,
 } from "./lib/transport/types.js";
-export type {
-  Plugin,
-  DefaultShell,
-  DefaultTransport,
-  ExtendedShell,
-  ExtendedClientFactory,
-  WithPlugin,
-} from "./lib/transport/default/plugin.types.js";
 export type {Entrypoint} from "./lib/entrypoint.types.js";

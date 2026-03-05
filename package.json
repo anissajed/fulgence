@@ -14,8 +14,16 @@
       "import": "./dist/index.es.js",
       "require": "./dist/index.cjs.js"
     },
-    "./default-tasks-lifecycle": "./lib/tasks-lifecycle/default/index.js",
-    "./default-transport": "./lib/transport/default/index.js"
+    "./default-tasks-lifecycle": {
+      "types": "./dist/default-tasks-lifecycle.d.ts",
+      "import": "./dist/default-tasks-lifecycle.es.js",
+      "require": "./dist/default-tasks-lifecycle.cjs.js"
+    },
+    "./default-transport": {
+      "types": "./dist/default-transport.d.ts",
+      "import": "./dist/default-transport.es.js",
+      "require": "./dist/default-transport.cjs.js"
+    }
   },
   "scripts": {
     "build": "tsc --p ./tsconfig.json; vite build",

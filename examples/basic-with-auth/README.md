@@ -28,4 +28,4 @@ task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
 ```
 
 ## Notes
-The default transport is located in `../../../lib/transport/default/index.js` (relative to `api-config.json`); it is equivalent in `api-config.json` to set this value (as it is currently set in the file) or let the field unset.
+The default transport is easily importable; if you put `export transport from "fulgence/default-transport"` in a file `./api/default-transport.js` is equivalent in the config file to set this path in the `transport:` field or let the field unset.

@@ -7,9 +7,13 @@ export default defineConfig(() => {
   return {
     build: {
       lib: {
-        entry: resolve(__dirname, "index.ts"),
+        entry: {
+          "index": resolve(__dirname, "index.ts"),
+          "default-tasks-lifecycle": resolve(__dirname, "lib/tasks-lifecycle/default/index.ts"),
+          "default-transport": resolve(__dirname, "lib/transport/default/index.ts"),
+        },
         formats: ["es", "cjs"],
-        fileName: (format) => `index.${format}.js`,
+        fileName: (format, entryName) => `${entryName}.${format}.js`,
       },
       sourcemap: true,
       minify: false,
