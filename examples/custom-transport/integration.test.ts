@@ -1,7 +1,7 @@
 import {describe} from "vitest"
 import {testDCFAgainstString} from "../../tests/lib/utils"
 
-describe("Basic example, distributed mode", testDCFAgainstString({
+describe("Custom transport example, distributed mode", testDCFAgainstString({
   dcf_dirname: __dirname,
   dcf_basename: "docker-compose.yml",
   service: "a",

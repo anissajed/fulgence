@@ -8,6 +8,4 @@ if [[ "$package_installed_path" != "$package_expected_path" && "$CHUNK_NAME" == 
     echo "Fixing ${PACKAGE_NAME} path in container.";
     rm -r node_modules/${PACKAGE_NAME};
     npm install --save ${package_expected_path};
-else
-  sleep 1;
 fi
