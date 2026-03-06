@@ -57,7 +57,7 @@ Instead of providing `config_path`, you may pass a preloaded configuration objec
 ```ts
 import {buildApi, loadConfig} from "fulgence";
 
-const config = await loadConfig(config_path);
+const config = await loadConfig({path: config_path});
 
 const api = await buildApi({
   local_module_name,
@@ -73,11 +73,15 @@ const api = await buildApi({
 ```ts
 import {loadConfig} from "fulgence";
 
-const config = await loadConfig(config_path);
+const config = await loadConfig({
+  path: config_path,
+  loader: fileLoader,
+});
 ```
 
 #### Arguments
 - **config_path** - Path to the config file (e.g. `/home/me/my-project/config.json`).
+- **loader** (optional) - a function loading the content configuration of the configuration file, and returning the JSON representation of its content. It looks like `async (config_path: string) => raw_config`. The default one does no more than a `require()`.
 
 #### Returns
 The returned `config` object can be passed to `buildApi()` or used programmatically.

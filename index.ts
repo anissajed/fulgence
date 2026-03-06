@@ -12,3 +12,4 @@ export type {
   Transport,
 } from "./lib/transport/types.js";
 export type {Entrypoint} from "./lib/entrypoint.types.js";
+export type {RawConfigLoader, LoadConfig} from "./lib/config/load-config.types.js";
