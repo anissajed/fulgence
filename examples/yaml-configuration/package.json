@@ -1,0 +1,18 @@
+{
+  "name": "fulgence-example-yaml-configuration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "type": "module",
+  "scripts": {
+    "cleanup": "sh ./bin/test-fulgence-symlink.sh",
+    "start": "npm run cleanup; node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fulgence": "file:../..",
+    "yaml": "^2.8.2"
+  }
+}

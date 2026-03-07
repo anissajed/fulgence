@@ -31,6 +31,9 @@ Refer to your selected transport documentation for details.
 
 - **`api`** — A client instance used to call tasks (see **Client API** below).
 
+#### Overload
+Instead of providing `config_path`, you may pass a preloaded configuration object. See example of it in `examples/yaml-config/`.
+
 ---
 
 ### `buildApi()`
@@ -53,7 +56,7 @@ const api = await buildApi({
 The returned `api` instance is described in the **Client API** section below.
 
 #### Overload
-Instead of providing `config_path`, you may pass a preloaded configuration object:
+Instead of providing `config_path`, you may pass a preloaded configuration object, as for entrypoint.
 ```ts
 import {buildApi, loadConfig} from "fulgence";
 

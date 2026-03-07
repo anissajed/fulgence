@@ -1,0 +1,53 @@
+services:
+  a:
+    container_name: task-a
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/yaml-configuration
+    environment:
+      CHUNK_NAME: a
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/yaml-configuration
+    - ./api:/usr/src/examples/yaml-configuration/api
+    - ./package.json:/usr/src/examples/yaml-configuration/package.json
+    - ./node_modules:/usr/src/examples/yaml-configuration/node_modules
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  b:
+    container_name: task-b
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/yaml-configuration
+    environment:
+      CHUNK_NAME: b
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/yaml-configuration
+    - ./api:/usr/src/examples/yaml-configuration/api
+    - ./node_modules:/usr/src/examples/yaml-configuration/node_modules
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  c:
+    container_name: task-c
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/yaml-configuration
+    environment:
+      CHUNK_NAME: c
+      PORT: 3000
+      SECRET: AZERTYUIOP
+    volumes:
+    - ../..:/usr/src
+    - ../basic:/usr/src/examples/yaml-configuration
+    - ./api:/usr/src/examples/yaml-configuration/api
+    - ./node_modules:/usr/src/examples/yaml-configuration/node_modules
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+
+networks:
+  fulgence_network:

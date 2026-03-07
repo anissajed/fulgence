@@ -28,5 +28,6 @@
     "examples/basic-with-auth",
     "examples/custom-transport",
     "examples/object-oriented-tasks",
+    "examples/yaml-configuration",
   ],
 }
