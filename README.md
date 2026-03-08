@@ -3,7 +3,7 @@ Run the same Node.js modules either as a single process or as distributed servic
 
 Fulgence decouples **module boundaries** from **deployment boundaries**, allowing you to switch execution modes at runtime while keeping your codebase unchanged.
 
-Ideal for teams migrating from monolith to microservices — or who want to keep both options open.
+Designed for teams responsibles of the whole microservices ecosystem management, migrating from monolith to microservices — or who want to keep both options open.
 
 ## Features
 - Run modules as monolith or distributed services
@@ -102,7 +102,7 @@ To run the tests: `npm run test`
 
 npx vitest
 ## Contributing
-TODO
+Please see `docs/CONTRIBUTING.md` .
 
 ## Warnings and limitations
 ### Transport serialization
@@ -119,13 +119,16 @@ you must handle reconstruction manually.
 
 Refer to the default transport plugins documentation for more details. The default transport plugins documentation is located in `transport/README.md`.
 
-### Roadmap considerations
-Some features are still evolving.
+### Runtime
+Currently, Fulgence can only run backend-side (Node.js, ...), ie the client can't run in browser (yet).
 
-For example, a task-dedicated shell syntax in the config file may be introduced in future versions.
+## What is Fulgence
+The goals that the Fulgence project aims were covered above. This package is precisely a versatile/unopinionated core: it does one very specialized thing, but it can do it in conjunction with any existing tech stack; thus, it can do what it does exactly the way you want it to do.
 
-Managing service-specific dependencies is also under consideration.
-Currently, maintaining one `package.json` per service is recommended.
+#### What it's not
+Fulgence won't (and can't) replace backend frameworks (like Express, Fastify, Nest, Hono, etc). It needs you to connect your current one, via your own (personnally developped or third party) transport plugin.
+
+It's also not a communication protocol: even if a default client-server communication is embedded, you should use your favourite RESTful/GraphQL/gRPC/JSON-RPC/etc communication protocol via your own transport plugin.
 
 ## About the name
 Fulgence Bienvenüe directed the development of the Paris Metro, combining centralized planning and shared standards with independently operating lines. This package adopts his (first) name to reflect the same principle: a system that can run as a single unit or as coordinated services.
