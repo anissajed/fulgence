@@ -22,10 +22,10 @@ export type ExpectLogFromContainer = (opts: {
   timeout?: number,
 }) => Promise<void>;
 
-export type TestDCFAgainstString = (opts: {
+export type TestDCFAgainstStrings = (opts: {
   dcf_dirname: string,
   dcf_basename: string,
   service: string,
   container_name: string,
-  text: string,
+  searchs: string[],
 }) => () => void;

@@ -23,7 +23,9 @@ task-c  | c, Initialization: Listening on port 3000
 task-b  | b, Initialization: Listening on port 3000
 task-a  | a, Initialization: Listening on port 3000
 task-a  | Run module a on chunk "a"
+task-a  | Will request Jayson server
 task-b  | Run module b on chunk "b"
+task-b  | Will request Jayson server
 task-c  | Run module c on chunk "c"
 task-c  | POST / 200 28.601 ms - 95
 task-b  | POST / 200 87.218 ms - 103

@@ -86,16 +86,18 @@ export const expectLogFromContainer = async ({
   expect(logs).toContain(text);
 }
 
-/** @typedef {import("./utils.types").TestDCFAgainstString} TestDCFAgainstString */
-/** @type TestDCFAgainstString */
-export const testDCFAgainstString = ({
+/** @typedef {import("./utils.types").TestDCFAgainstStrings} TestDCFAgainstStrings */
+/** @type TestDCFAgainstStrings */
+export const testDCFAgainstStrings = ({
   dcf_dirname,
   dcf_basename,
   service,
   container_name,
-  text,
+  searchs = [],
 }) => {
   let environment;
+
+  if (searchs.length == 0) throw new Error("Need at list one string to search against");
 
   return () => {
     beforeAll(async () => {
@@ -103,14 +105,16 @@ export const testDCFAgainstString = ({
         dcf_dirname,
         dcf_basename,
         service,
-        text,
+        text: searchs[searchs.length - 1],
       });
     }, 60_000)
 
     afterAll(() => stopDCF({environment}))
 
     it("should find the result in logs", async () => {
-      await expectLogFromContainer({environment, container_name, text});
+      for (const search of searchs) {
+        await expectLogFromContainer({environment, container_name, text: search});
+      }
     })
   }
 }

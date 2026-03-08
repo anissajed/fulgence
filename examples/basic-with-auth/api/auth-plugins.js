@@ -6,6 +6,7 @@ const header_name = "authorization";
 export const client_auth_plugin = {
   beforeRequest: async ({body, fetch_opts, dest_opts}) => {
     const jwt = await generateJWT({sub: name});
+    console.log(`Sending request with token in header ${header_name} on chunk ${name}`);
     fetch_opts.headers = {
       ...(fetch_opts.headers || {}),
       [header_name]: `Bearer ${jwt}`,

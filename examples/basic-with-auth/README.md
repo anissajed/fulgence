@@ -20,8 +20,10 @@ If you want still to run it, you should prepare a Docker Compose file inspired f
 $ docker compose up
 ...
 task-a  | Run module a on chunk "a"
+task-a  | Sending request with token in header authorization on chunk a
 task-b  | On chunk b, successfully verified the caller's JWT
 task-b  | Run module b on chunk "b"
+task-b  | Sending request with token in header authorization on chunk b
 task-c  | On chunk c, successfully verified the caller's JWT
 task-c  | Run module c on chunk "c"
 task-a  | Final result: { example: true, c: 'c', b: 'b', a: 'a' }
