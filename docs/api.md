@@ -27,7 +27,7 @@ Refer to your selected transport documentation for details.
 #### Returns
 - **`server`** — The underlying server instance hosting the task(s).
   It is exposed for advanced customization if needed.
-  It is the output of the `shell()` hook of the selected transport (see Transport section).
+  It is the output of the selected Transport Server Plugin (see Transport section).
 
 - **`api`** — A client instance used to call tasks (see **Client API** below).
 
@@ -153,8 +153,11 @@ Used when the task is not loaded locally.
 ##### `tasks_lifecycle` (optional)
 Path (relative to the config file) to a Tasks Lifecycle Plugin.
 
-##### `transport` (optional)
-Path (relative to the config file) to a Transport Plugin.
+##### `transport_client` (optional)
+Path (relative to the config file) to a Transport Client Plugin.
+
+##### `transport_server` (optional)
+Path (relative to the config file) to a Transport Server Plugin.
 
 #### Notes
 Currently, the configuration file must be JSON.
@@ -163,15 +166,16 @@ Support for additional formats (e.g. JS, YAML) may be added in the future.
 ---
 
 ### Transport
-The Transport Plugin defines how inter-task communication works in distributed mode.
-It is also responsible for declaring the server implementation in monolith mode.
+The Transport define how inter-task communication works in distributed mode. It is implemented by a Client and a Server Plugins.
+
+In monolith mode, the Transport Server Plugin is rather responsible for declaring the server implementation, while the Transport Client Plugin is used only by the initial task caller - and not tasks themselves anymore.
 
 Fulgence is transport-agnostic: you may implement your own server layer (e.g. Express, gRPC, NestJS) along with a compatible client.
 
-#### Default Transport plugin
-The default transport is the combination of a (fetch) POST call with a vanilla nodejs server.
+#### Default Transport Plugins
+Documentation about the default transport plugins can be found in `../transport/README.md`.
 
-The 2 following ways to use the default transport are equivalent:
+The 2 following ways to have the default transport plugged are equivalent:
 
 ```
 // Standard configuration
@@ -187,42 +191,41 @@ The 2 following ways to use the default transport are equivalent:
 ```
 // Explicit configuration
 
-// default-transport.js
-export {default} from "fulgence/default-transport";
+// default-client-transport.js
+export {client} from "fulgence/transport/client/default";
+
+// default-server-transport.js
+export {server} from "fulgence/transport/server/default";
 
 // api-config.json (configuration file)
 {
-  "transport": "./default-transport.js",
+  "transport_client": "./default-client-transport.js",
+  "transport_server": "./default-server-transport.js",
   "tasks": {
     ...
   } 
 }
 ```
 
-More documentation about the default transport can be found in `../transport/default/README.md`.
+#### Custom Transport Plugins
+The inter-task communication is composed of a Client and a Server plugins. The Transport Client Plugin exports its payload via the `client` named export, while the Transport Server Plugin does this via the `server` named export.
 
-#### Custom Transport Plugin
-A transport plugin must export two hooks:
+Both plugins are declared in the configuration file (see the **Config File** section).
 
-- `shell()`
-- `clientFactory()`
-
-The plugin is declared in the configuration file (see the **Config File** section).
-
-##### `shell()`
+##### Transport Server Plugin
 Creates the server hosting the task(s).
 
 ```ts
-async function shell({port, ...<arbitrary args>}) {
+export default async function server({port, ...<arbitrary args>}) {
   return server;
 }
 ```
 
-##### `clientFactory()`
+##### Transport Client Plugin
 Creates a client for a given remote task, or all tasks in monolith mode.
 
 ```ts
-async clientFactory({
+export default async client({
   name, // Name of the called task/module (from config)
   url,  // Remote URL of the called task/module (from config)
 }) => async (request_args) => result

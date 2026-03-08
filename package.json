@@ -15,14 +15,19 @@
       "require": "./dist/index.cjs.js"
     },
     "./default-tasks-lifecycle": {
-      "types": "./dist/default-tasks-lifecycle.d.ts",
-      "import": "./dist/default-tasks-lifecycle.es.js",
-      "require": "./dist/default-tasks-lifecycle.cjs.js"
+      "types": "./dist/tasks-lifecycle/default/index.d.ts",
+      "import": "./dist/tasks-lifecycle/default/index.es.js",
+      "require": "./dist/tasks-lifecycle/default/index.cjs.js"
     },
-    "./default-transport": {
-      "types": "./dist/default-transport.d.ts",
-      "import": "./dist/default-transport.es.js",
-      "require": "./dist/default-transport.cjs.js"
+    "./transport/client/default": {
+      "types": "./dist/transport/client/default/index.d.ts",
+      "import": "./dist/transport/client/default/index.es.js",
+      "require": "./dist/transport/client/default/index.cjs.js"
+    },
+    "./transport/server/default": {
+      "types": "./dist/transport/server/default/index.d.ts",
+      "import": "./dist/transport/server/default/index.es.js",
+      "require": "./dist/transport/server/default/index.cjs.js"
     }
   },
   "scripts": {

@@ -9,14 +9,18 @@ export default defineConfig(() => {
       lib: {
         entry: {
           "index": resolve(__dirname, "index.ts"),
-          "default-tasks-lifecycle": resolve(__dirname, "lib/tasks-lifecycle/default/index.ts"),
-          "default-transport": resolve(__dirname, "lib/transport/default/index.ts"),
+          "tasks-lifecycle/default/index": resolve(__dirname, "lib/tasks-lifecycle/default/index.ts"),
+          "transport/client/default/index": resolve(__dirname, "lib/transport/client/default/index.ts"),
+          "transport/server/default/index": resolve(__dirname, "lib/transport/server/default/index.ts"),
         },
         formats: ["es", "cjs"],
         fileName: (format, entryName) => `${entryName}.${format}.js`,
       },
       sourcemap: true,
       minify: false,
+    },
+    output: {
+      exports: "named",
     },
     plugins: [
       {...nodeExternals(), enforce: "pre"},

@@ -1,17 +1,17 @@
 import {Api} from "./api.types";
 import {
-  AnyServer,
-  ArbitraryArgsShellOpts,
-  PortShellOpt,
-} from "./transport/types";
+  ServerInstance,
+  ArbitraryArgsServerOpts,
+  PortServerOpt,
+} from "./transport/server/types";
 
 type EntrypointOpts = {
   name: string;
   config_path: string;
-  port: PortShellOpt;
-} & ArbitraryArgsShellOpts;
+  port: PortServerOpt;
+} & ArbitraryArgsServerOpts;
 interface EntrypointRes {
-  server: AnyServer;
+  server: ServerInstance;
   api: Api;
 };
 export type Entrypoint = (opts: EntrypointOpts) => Promise<EntrypointRes>;

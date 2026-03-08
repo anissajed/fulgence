@@ -1,10 +1,10 @@
 // @ts-ignore
 import jayson from "jayson/promise/lib/index.js";
 
-export const clientFactory = ({name, url}) => async (opts) => {
-  const client = jayson.Client.http(url);
+export const client = ({name, url}) => async (opts) => {
+  const jayson_client = jayson.Client.http(url);
 
-  const response = await client.request(name, opts);
+  const response = await jayson_client.request(name, opts);
   if (response.error) {
     throw new Error(response.error);
   }

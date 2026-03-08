@@ -117,7 +117,7 @@ instanceof CustomClass
 
 you must handle reconstruction manually.
 
-Refer to the transport documentation for more details. The default transport documentation is located in `transport/default/README.md`.
+Refer to the default transport plugins documentation for more details. The default transport plugins documentation is located in `transport/README.md`.
 
 ### Roadmap considerations
 Some features are still evolving.

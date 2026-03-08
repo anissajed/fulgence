@@ -4,7 +4,8 @@ interface TaskConfig {
 };
 interface RawConfig {
   tasks_lifecycle?: string;
-  transport?: string;
+  transport_client?: string;
+  transport_server?: string;
   tasks: Record<string, TaskConfig>;
 };
 export type Config = RawConfig & {

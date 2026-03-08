@@ -1,4 +1,4 @@
-# Default Transport
+## Default Transport
 The default transport is built on top of a minimal HTTP layer:
 - A lean `POST` request on the client side
 - A vanilla Node.js HTTP server on the server side
@@ -10,13 +10,14 @@ Despite its simplicity, it is highly extensible through a well-defined hook syst
 
 ---
 
-## API
-### `shell()`
+## Server Plugin API
+
+### `server()`
 Creates the HTTP server hosting the task(s).
 
 ```ts
 type Server = unknown;
-type shell = ({port: number}) => Promise<Server>
+type server = ({port: number}) => Promise<Server>
 ```
 
 - Used in monolith mode to host all tasks.
@@ -25,11 +26,13 @@ type shell = ({port: number}) => Promise<Server>
 
 ---
 
-### `clientFactory()`
+## Client Plugin API
+
+### `client()`
 Creates a client function for a given remote task (or for all tasks in monolith mode).
 
 ```ts
-async function clientFactory({name, url}) {
+async function client({name, url}) {
   return async function request(request_args = {}) {
     return result;
  };
@@ -37,7 +40,7 @@ async function clientFactory({name, url}) {
 ```
 ```ts
 type ModuleRequest = (request_args: unknown) => Promise<unknown>;
-type ClientFactory = ({name: string, url: URL|string}) => ModuleRequest;
+type Client = ({name: string, url: URL|string}) => ModuleRequest;
 ```
 
 - `name` — The name of the called task/module (from the config file).
@@ -54,7 +57,7 @@ type ClientFactory = ({name: string, url: URL|string}) => ModuleRequest;
 ---
 
 ## Extending the Transport
-The default transport exposes several hooks that allow you to customize its behavior (for example, to add authentication, encryption, logging, or custom serialization).
+The default transport plugins exposes several hooks that allow you to customize their behavior (for example, to add authentication, encryption, logging, or custom serialization).
 
 ### Example
 A basic extension example is available at `../examples/basic-with-auth/api/transport.js` .
@@ -68,7 +71,9 @@ They can be used symmetrically on the client (caller) and server (called) sides.
 
 ---
 
-#### `beforeRequest`
+#### Client Plugin Hooks
+
+##### `beforeRequest`
 Default:
 ```ts
 async ({body, fetch_opts, dest_opts}) => ({body, fetch_opts})
@@ -88,34 +93,7 @@ Typical use cases:
 
 ---
 
-#### `onRequest`
-Default:
-```ts
-async (input) => input
-```
-
-Executed on the **server side** (the "called"), before the task is invoked.
-
-Allows you to transform or deserialize the request payload before passing it to the task.
-
----
-
-#### `beforeResponseSent`
-Default:
-```ts
-async (result) => result
-```
-
-Executed on the **server side** (called), after task execution but before sending the response.
-
-Allows you to:
-- Transform or serialize the result
-- Wrap the result in a custom envelope
-- Encrypt the response
-
----
-
-#### `onResponse`
+##### `onResponse`
 Default:
 ```ts
 async (result) => result
@@ -130,20 +108,45 @@ Allows you to:
 
 ---
 
+#### Server Plugin Hooks
+
+##### `onRequest`
+Default:
+```ts
+async (input) => input
+```
+
+Executed on the **server side** (the "called"), before the task is invoked.
+
+Allows you to transform or deserialize the request payload before passing it to the task.
+
+---
+
+##### `beforeResponseSent`
+Default:
+```ts
+async (result) => result
+```
+
+Executed on the **server side** (called), after task execution but before sending the response.
+
+Allows you to:
+- Transform or serialize the result
+- Wrap the result in a custom envelope
+- Encrypt the response
+
+---
+
 #### Hooks Execution Order
 The lifecycle of a request is:
 
-| Stage        | Side     | Layer              | Hook                |
-|-------------|----------|-------------------|---------------------|
-| 1           | Caller   | Transport Client   | `beforeRequest`     |
-| 2           | Called   | Transport Server   | `onRequest`         |
-| 3           | Called   | Task Execution     | —                   |
-| 4           | Called   | Transport Server   | `beforeResponseSent`|
-| 5           | Caller   | Transport Client   | `onResponse`        |
-
-Legend:
-- **Transport Client** → implementation returned by `clientFactory()`
-- **Transport Server** → implementation created by `shell()`
+| Stage       | Layer           | Hook                |
+|-------------|-----------------|---------------------|
+| 1           | Client Plugin   | `beforeRequest`     |
+| 2           | Server Plugin   | `onRequest`         |
+| 3           | Task Execution  | —                   |
+| 4           | Server Plugin   | `beforeResponseSent`|
+| 5           | Client Plugin   | `onResponse`        |
 
 ---
 
@@ -156,29 +159,43 @@ The goal is to allow each plugin to:
 
 Example:
 ```ts
-const plugin_1 = {
+// transport.client.js
+import {client} from "fulgence/transport/client/default";
+
+const plugin_1_client = {
   beforeRequest: transformToC,
-  onRequest: undoCTransformation,
-  beforeResponseSent: transformToE,
   onResponse: undoETransformation,
 };
 
-const plugin_2 = {
+const plugin_2_client = {
   beforeRequest: transformToB,
-  onRequest: undoBTransformation,
-  beforeResponseSent: transformToD,
   onResponse: undoDTransformation,
 };
 
-const transport_with_p1 = transport.withPlugin(plugin_1, transport);
-const transport_with_p1_p2 = transport.withPlugin(plugin_2, transport);
+const client_with_p1 = withPlugin(plugin_1, client);
+const client_with_p1_p2 = withPlugin(plugin_2, client_with_p1);
+export const client = client_with_p1_p2;
 
-export default transport_with_p1_p2;
+// transport.server.js
+import {server} from "fulgence/transport/server/default";
+const plugin_1_server = {
+  onRequest: undoCTransformation,
+  beforeResponseSent: transformToE,
+};
+
+const plugin_2_server = {
+  onRequest: undoBTransformation,
+  beforeResponseSent: transformToD,
+};
+
+const server_with_p1 = withPlugin(plugin_1, server);
+const server_with_p1_p2 = withPlugin(plugin_2, server_with_p1);
+export const server = server_with_p1_p2;
 ```
 
 Execution order for an initial argument `A` and task response `R`:
 
-##### Request phase
+***Request phase***
 1. `transformToB` → `B(A)`
 2. `transformToC` → `C(B(A))`
 3. `undoCTransformation` → `B(A)`
@@ -186,7 +203,7 @@ Execution order for an initial argument `A` and task response `R`:
 
 (Task execution transforms `A` into `R`)
 
-##### Response phase
+***Response phase***
 5. `transformToD` → `D(R)`
 6. `transformToE` → `E(D(R))`
 7. `undoETransformation` → `D(R)`

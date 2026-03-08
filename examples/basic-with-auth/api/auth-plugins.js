@@ -1,9 +1,9 @@
-import {generateJWT, verifyJWT} from "./auth.js";
+import {generateJWT, verifyJWT} from "./jwt.js";
 
 const name = process.env.CHUNK_NAME;
 const header_name = "authorization";
 
-export const auth_plugin = {
+export const client_auth_plugin = {
   beforeRequest: async ({body, fetch_opts, dest_opts}) => {
     const jwt = await generateJWT({sub: name});
     fetch_opts.headers = {
@@ -12,6 +12,9 @@ export const auth_plugin = {
     };
     return {body, fetch_opts};
   },
+};
+
+export const server_auth_plugin = {
   onRequest: async (data, req) => {
     const auth_header = req.headers?.[header_name] || "";
     const token = auth_header.replace(/^Bearer /, "");

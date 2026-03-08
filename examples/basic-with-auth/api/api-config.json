@@ -1,5 +1,6 @@
 {
-  "transport": "./transport.js",
+  "transport_client": "./transport-client.js",
+  "transport_server": "./transport-server.js",
   "tasks": {
     "a": {
       "file": "../a.js",

@@ -1,5 +1,6 @@
 {
-  "transport": "../json-rpc-transport/index.js",
+  "transport_client": "../json-rpc-transport/client.js",
+  "transport_server": "../json-rpc-transport/server/index.js",
   "tasks": {
     "a": {
       "file": "../a.js",
