@@ -12,3 +12,9 @@ Executables define runtime deployment.
 This separation allows you to change deployment strategy without restructuring your codebase.
 
 Once the main goal was clear, I wanted it to be lean and unopinionated. It is a 0-dependencies package that is compatible with the main JS coding styles, a priori all popular transport technologies (RESTful calls, RPC, events, etc.), popular architectures (DDD, SOA, EDA, etc.) and common backend features and technologies (e.g. authentication), thanks to the plugin system.
+
+## Install for contributors
+```
+npm install
+npm run prepare # Add lint check on commit, via husky and lint-staged
+```

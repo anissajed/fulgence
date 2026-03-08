@@ -33,8 +33,15 @@
   "scripts": {
     "build": "tsc --p ./tsconfig.json; vite build",
     "lint": "eslint .",
+    "prepare": "husky",
+    "pre-commit": "lint-staged",
     "prepublishOnly": "npm run build",
     "test": "npx vitest"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "npx eslint"
+    ]
   },
   "author": "Anis SAJED",
   "license": "ISC",
@@ -44,6 +51,8 @@
   "devDependencies": {
     "eslint": "^9.39.3",
     "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
     "rollup-plugin-node-externals": "^8.1.2",
     "testcontainers": "^11.12.0",
     "typescript-eslint": "^8.56.1",
