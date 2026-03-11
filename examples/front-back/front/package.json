@@ -1,0 +1,28 @@
+{
+  "name": "fulgence-example-front-back-front",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "install:os-specific-deps": "sh ./bin/install-container-packages.sh",
+    "test-fulgence-symlink": "sh ./bin/set-fulgence-symlink.sh",
+    "cleanup": "npm run install:os-specific-deps; npm run test-fulgence-symlink",
+    "start": "npm run cleanup; npm run dev",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitest/browser-playwright": "^4.0.18",
+    "vitest": "^4.0.18"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-musl": "4.9.0"
+  },
+  "dependencies": {
+    "fulgence": "file:../../..",
+    "vite": "^7.3.1"
+  }
+}

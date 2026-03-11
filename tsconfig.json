@@ -29,5 +29,6 @@
     "examples/custom-transport",
     "examples/object-oriented-tasks",
     "examples/yaml-configuration",
+    "examples/front-back",
   ],
 }

@@ -1,0 +1,53 @@
+services:
+  front:
+    container_name: ${FRONT_CONTAINER_NAME}
+    image: "node:20-alpine"
+    working_dir: /usr/src/examples/front-back/front
+    ports:
+      - ${FRONT_PORT}:${FRONT_PORT}
+    environment:
+      PORT: ${FRONT_PORT}
+      CONTAINER_NAME: ${FRONT_CONTAINER_NAME}
+      BACK_CONTAINER_NAME: ${BACK_CONTAINER_NAME}
+      BACK_PORT: ${BACK_PORT}
+    volumes:
+    - ../..:/usr/src
+    - front_node_modules:/usr/src/examples/front-back/front/node_modules
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+
+  back:
+    container_name: ${BACK_CONTAINER_NAME}
+    image: "node:20-alpine"
+    working_dir: /usr/src/examples/front-back/back
+    ports:
+      - ${BACK_PORT}:${BACK_PORT}
+    environment:
+      CHUNK_NAME: a
+      PORT: ${BACK_PORT}
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+
+  test:
+    container_name: ${TEST_CONTAINER_NAME}
+    image: mcr.microsoft.com/playwright:v1.58.2-noble
+    init: true
+    ipc: host
+    entrypoint: npx playwright test
+    working_dir: /app/test
+    environment:
+      - BASE_URL=http://${FRONT_CONTAINER_NAME}:${FRONT_PORT}
+    volumes:
+      - ./test:/app/test
+    networks:
+      - fulgence_network
+
+volumes:
+  front_node_modules:
+
+networks:
+  fulgence_network:

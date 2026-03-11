@@ -1,0 +1,17 @@
+{
+  "name": "fulgence-example-front-back-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "type": "module",
+  "scripts": {
+    "cleanup": "sh ./bin/set-fulgence-symlink.sh",
+    "start": "npm run cleanup; node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fulgence": "file:../../.."
+  }
+}

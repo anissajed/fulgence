@@ -1,7 +1,8 @@
+import {defineConfig} from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default {
+const base_config = {
   languageOptions: {
     parser: tseslint.parser,
     parserOptions: {
@@ -18,7 +19,12 @@ export default {
     '@typescript-eslint': tseslint.plugin,
   },
   files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-  ignores: ["node_modules/**", "dist/**", "package-lock.json"],
+  ignores: [
+    "node_modules/**",
+    "**/dist/**",
+    "package-lock.json",
+    "examples/front-back/front/src/**/*.{js,mjs,cjs,ts,mts,cts}",
+  ],
   rules: {
     "no-var": "warn",
     "object-shorthand": ["warn", "properties"],
@@ -137,4 +143,17 @@ export default {
     "valid-typeof": ["error", {"requireStringLiterals": true}],
     "yoda": ["error", "never"],
   }
-}
+};
+
+const front_config = {
+  files: ["examples/front-back/front/src/**/*.{js,mjs,cjs,ts,mts,cts}"],
+  ignores: [],
+  languageOptions: {
+    globals: globals.browser,
+  },
+};
+
+export default defineConfig([
+  base_config,
+  front_config,
+]);

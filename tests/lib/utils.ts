@@ -12,7 +12,7 @@ export const startDCFAndWaitForLog = async ({
   const environment = await new DockerComposeEnvironment(dcf_dirname, dcf_basename)
     .withWaitStrategy(
       service,
-      Wait.forLogMessage(text)
+      Wait.forLogMessage(text).withStartupTimeout(30_000)
     )
     .up()
 
@@ -31,7 +31,6 @@ export const stopDCF = async ({environment}) => {
     })
   }
 }
-
 
 const onErrorFactory = ({timeout_id, stream, reject}) => (err) => {
   clearTimeout(timeout_id)
