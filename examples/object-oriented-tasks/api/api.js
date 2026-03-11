@@ -8,7 +8,7 @@ const runServer = async () => {
   const {server, api} = await entrypoint({
     name,
     config_path,
-    port,
+    server_opts: {port},
   });
 
   const oo_api = objectOrientedApi({api});

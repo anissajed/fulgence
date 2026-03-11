@@ -1,15 +1,14 @@
 import {Api} from "./api.types";
 import {
   ServerInstance,
-  ArbitraryArgsServerOpts,
-  PortServerOpt,
+  ServerSpecificOpts,
 } from "./transport/server/types";
 
 type EntrypointOpts = {
   name: string;
   config_path: string;
-  port: PortServerOpt;
-} & ArbitraryArgsServerOpts;
+  server_opts?: ServerSpecificOpts;
+};
 interface EntrypointRes {
   server: ServerInstance;
   api: Api;

@@ -6,6 +6,6 @@ const config_path = new URL("./api-config.json", import.meta.url).pathname;
 const runServer = () => entrypoint({
   name,
   config_path,
-  port,
+  server_opts: {port},
 });
 export default runServer;

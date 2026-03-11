@@ -8,11 +8,15 @@ export interface ServerPlugin {
   beforeResponseSent?: BeforeResponseSent;
 }
 
-type DefaultServerOpts = ServerOpts & {
+interface DefaultServerSpecificOpts {
+  port?: number | string;
   req_max_size_bytes?: number;
   onReady?: (port: any) => void;
   onRequest?: OnRequest;
   beforeResponseSent?: BeforeResponseSent;
+}
+type DefaultServerOpts = ServerOpts & {
+  opts: DefaultServerSpecificOpts;
 }
 export type DefaultServer = (opts: DefaultServerOpts) => Promise<Server>;
 

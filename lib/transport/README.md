@@ -1,4 +1,4 @@
-## Default Transport
+# Default Transport
 The default transport is built on top of a minimal HTTP layer:
 - A lean `POST` request on the client side
 - A vanilla Node.js HTTP server on the server side
@@ -16,12 +16,25 @@ Despite its simplicity, it is highly extensible through a well-defined hook syst
 Creates the HTTP server hosting the task(s).
 
 ```ts
-type Server = unknown;
-type server = ({port: number}) => Promise<Server>
+type Server = ({
+  ...
+  opts: {
+    port: number | string;
+    req_max_size_bytes?: number;
+    onReady?: (port: any) => void;
+    onRequest?: OnRequest;
+    beforeResponseSent?: BeforeResponseSent;
+  };
+}) => Promise<unknown>;
 ```
 
 - Used in monolith mode to host all tasks.
 - Used in distributed mode to host a single module.
+- `port` — The port to listen to.
+- `req_max_size_bytes` — a limit for requests sizes.
+- `onReady()` - will be called when the server is up & ready.
+- `onRequest()` - cf section: Server Plugin Hooks.
+- `beforeResponseSent()` - cf section: Server Plugin Hooks.
 - Returns the underlying Node.js server instance.
 
 ---

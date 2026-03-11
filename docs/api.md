@@ -11,17 +11,14 @@ const {
 } = await entrypoint({
   name,
   config_path,
-  port,
-  // <arbitrary args>
+  server_opts,
 });
 ```
 
 #### Arguments
 - **name** - Module name (e.g. "task-a"). Leave undefined for monolith mode.
 - **config_path** - Path to the config file (e.g. `/home/me/my-project/config.json`).
-- **port** - Port on which this chunk (or monolith) listens (e.g. 80).
-
-- **Additional arguments** - `<arbitrary args>` are transport-specific options used to configure the server/runtime.
+- **server_opts** - these are transport-specific options used to configure the server/runtime.
 Refer to your selected transport documentation for details.
 
 #### Returns
@@ -123,7 +120,8 @@ Example configuration (all optional fields included):
 ```json
 {
   "tasks_lifecycle": "./tasks-lifecycle.js",
-  "transport": "./transport.js",
+  "transport_client": "./client.js",
+  "transport_server": "./server.js",
   "tasks": {
     "a": {
       "file": "./task-a.js",
@@ -216,10 +214,11 @@ Both plugins are declared in the configuration file (see the **Config File** sec
 Creates the server hosting the task(s).
 
 ```ts
-export default async function server({port, ...<arbitrary args>}) {
+export default async function server({api, name, opts}) {
   return server;
 }
 ```
+`opts` is `entrypoint()`'s `server_opts`.
 
 ##### Transport Client Plugin
 Creates a client for a given remote task, or all tasks in monolith mode.
