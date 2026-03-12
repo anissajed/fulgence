@@ -57,7 +57,7 @@ Monolith mode:
 $ PORT=3002 node ./index.js &
 ```
 
-See the `examples/` directory for complete working setups.
+See the [examples/ directory](examples) for complete working setups.
 
 ## How it works
 Fulgence introduces a thin execution layer around your modules.
@@ -93,7 +93,7 @@ Executable boundaries are configurable at runtime.
 Your code structure stays stable while your deployment model evolves.
 
 ## API
-Please refer to `docs/api.md` .
+Please refer to [API documentation](docs/api.md).
 
 ## tests
 The integration tests use Docker Compose (more precisely the docker compose files from the examples), check you installed Docker before running the tests.
@@ -102,7 +102,7 @@ To run the tests: `npm run test`
 
 npx vitest
 ## Contributing
-Please see `docs/CONTRIBUTING.md` .
+Please see the [Contributing documentation](docs/CONTRIBUTING.md).
 
 ## Warnings and limitations
 ### Transport serialization
@@ -117,7 +117,7 @@ instanceof CustomClass
 
 you must handle reconstruction manually.
 
-Refer to the default transport plugins documentation for more details. The default transport plugins documentation is located in `transport/README.md`.
+Refer to the [default transport plugins documentation](lib/transport/README.md) for more details.
 
 ### Runtime
 Currently, Fulgence can only run backend-side (Node.js, ...), ie the client can't run in browser (yet).

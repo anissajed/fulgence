@@ -29,7 +29,7 @@ Refer to your selected transport documentation for details.
 - **`api`** — A client instance used to call tasks (see **Client API** below).
 
 #### Overload
-Instead of providing `config_path`, you may pass a preloaded configuration object. See example of it in `examples/yaml-config/`.
+Instead of providing `config_path`, you may pass a preloaded configuration object. See example of it in the [YAML config example](../examples/yaml-configuration).
 
 ---
 
@@ -105,7 +105,7 @@ The same `api` interface is:
 - Returned by `entrypoint()`.
 - Creatable independently via `buildApi()`.
 
-The shape of the `api` object can be customized via the Tasks Lifecycle Plugin (see below), as demonstrated in `examples/object-oriented-tasks`.
+The shape of the `api` object can be customized via the Tasks Lifecycle Plugin (see below), as demonstrated in the [Object-Oriented Tasks example](../examples/object-oriented-tasks).
 
 ---
 
@@ -171,7 +171,7 @@ In monolith mode, the Transport Server Plugin is rather responsible for declarin
 Fulgence is transport-agnostic: you may implement your own server layer (e.g. Express, gRPC, NestJS) along with a compatible client.
 
 #### Default Transport Plugins
-Documentation about the default transport plugins can be found in `../transport/README.md`.
+Please see the [Documentation about the default transport plugins](../lib/transport/README.md).
 
 The 2 following ways to have the default transport plugged are equivalent:
 
@@ -231,7 +231,7 @@ export default async client({
 ```
 
 #### Example
-A complete example of a custom Transport Plugin is available in `examples/custom-transport` .
+A complete example of a custom Transport Plugin is available in [Custom Transport](../examples/custom-transport).
 
 ---
 
@@ -269,4 +269,4 @@ onDoTask: async ({task, input, api}) => task(input, api)
 - Its return value is forwarded to the caller.
 
 #### Example
-A complete example of a custom Tasks Lifecycle Plugin is available in `examples/object-oriented-tasks` .
+A complete example of a custom Tasks Lifecycle Plugin is available in the [Object-Oriented Tasks example](../examples/object-oriented-tasks).

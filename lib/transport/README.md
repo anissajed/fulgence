@@ -73,7 +73,7 @@ type Client = ({name: string, url: URL|string}) => ModuleRequest;
 The default transport plugins exposes several hooks that allow you to customize their behavior (for example, to add authentication, encryption, logging, or custom serialization).
 
 ### Example
-A basic extension example is available at `../examples/basic-with-auth/api/transport.js` .
+A basic extension example is available in the [basic example with authentication](../../examples/basic-with-auth/api/transport.js).
 
 ---
 
