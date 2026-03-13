@@ -1,4 +1,4 @@
-import {Api} from "../../api.types";
+import {Api} from "../api.types";
 
 type Task = any;
 export type OnInitTask = (opts: {module, api: Api}) => Promise<Task>;

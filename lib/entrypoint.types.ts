@@ -1,16 +1,23 @@
 import {Api} from "./api.types";
+import {Config} from "./config/load-config.types";
+import {DefaultServerSpecificOpts} from "./transport/server/default/server.types";
 import {
   ServerInstance,
-  ServerSpecificOpts,
 } from "./transport/server/types";
 
-type EntrypointOpts = {
+type EntrypointOptsBase<T = unknown> = {
   name: string;
-  config_path: string;
-  server_opts?: ServerSpecificOpts;
+  server_opts?: T;
 };
+type EntrypointOptsConfigPath<T = unknown> = EntrypointOptsBase<T> & {
+  config_path: string;
+};
+type EntrypointOptsConfig<T = unknown> = EntrypointOptsBase<T> & {
+  config: Config;
+};
+type EntrypointOpts<T = unknown> = EntrypointOptsConfigPath<T> | EntrypointOptsConfig<T>;
 interface EntrypointRes {
   server: ServerInstance;
   api: Api;
 };
-export type Entrypoint = (opts: EntrypointOpts) => Promise<EntrypointRes>;
+export type Entrypoint<T = DefaultServerSpecificOpts> = (opts: EntrypointOpts<T>) => Promise<EntrypointRes>;

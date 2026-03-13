@@ -270,3 +270,6 @@ onDoTask: async ({task, input, api}) => task(input, api)
 
 #### Example
 A complete example of a custom Tasks Lifecycle Plugin is available in the [Object-Oriented Tasks example](../examples/object-oriented-tasks).
+
+## Typings
+Fulgence exports typings. You can see TS types uses (in TS or JSDoc) in the [Custom Transport](../examples/custom-transport), [Object-Oriented Tasks](../examples/object-oriented-tasks) and [YAML Config](../examples/yaml-configuration) examples.

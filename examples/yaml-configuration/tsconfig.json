@@ -1,0 +1,15 @@
+{
+  "include": ["**/*.ts", "**/*.js"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "allowJs": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}

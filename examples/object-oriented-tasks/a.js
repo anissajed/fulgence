@@ -1,3 +1,4 @@
+/** @type import("./types").OOTask */
 export default class ModuleA {
   constructor ({api}) {
     this.api = api;

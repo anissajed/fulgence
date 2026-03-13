@@ -6,6 +6,7 @@ const {readFile} = fs.promises;
 const {CHUNK_NAME: name, PORT: port = 3010} = process.env;
 const config_path = new URL("./api-config.yaml", import.meta.url).pathname;
 
+/** @type import("fulgence").RawConfigLoader */
 const loader = async (config_path) => {
   const yaml_content = await readFile(config_path, 'utf8');
   const parsed = parseYaml(yaml_content);

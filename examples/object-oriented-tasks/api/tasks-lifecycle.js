@@ -1,5 +1,6 @@
 import {objectOrientedApi} from "./oo-api.js";
 
+/** @type import("../types").OnInitTask */
 export const onInitTask = async ({module, api}) => {
   const Template = module.default;
 
@@ -9,6 +10,7 @@ export const onInitTask = async ({module, api}) => {
   return task;
 };
 
+/** @type import("../types").OnDoTask */
 export const onDoTask = async ({task, input, api}) => {
   if (!input?.operation) throw new Error("The asked task execution has no associated operation");
 

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "cleanup": "sh ./bin/set-fulgence-symlink.sh",
-    "start": "npm run cleanup; node index.js",
+    "typecheck": "npx tsc",
+    "start": "npm run cleanup; npm run typecheck; node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,5 +15,8 @@
   "dependencies": {
     "fulgence": "file:../..",
     "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }

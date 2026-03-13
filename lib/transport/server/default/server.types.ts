@@ -8,7 +8,7 @@ export interface ServerPlugin {
   beforeResponseSent?: BeforeResponseSent;
 }
 
-interface DefaultServerSpecificOpts {
+export interface DefaultServerSpecificOpts {
   port?: number | string;
   req_max_size_bytes?: number;
   onReady?: (port: any) => void;

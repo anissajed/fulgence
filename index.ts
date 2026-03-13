@@ -8,3 +8,4 @@ export type {
   Server,
 } from "./lib/transport/server/types.js";
 export type {Entrypoint} from "./lib/entrypoint.types.js";
+export type {OnInitTask, OnDoTask} from "./lib/tasks-lifecycle/types.js";

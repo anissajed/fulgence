@@ -1,6 +1,7 @@
 // @ts-ignore
 import jayson from "jayson/promise/lib/index.js";
 
+/** @type import("fulgence").Client */
 export const client = ({name, url}) => async (opts) => {
   const jayson_client = jayson.Client.http(url);
 

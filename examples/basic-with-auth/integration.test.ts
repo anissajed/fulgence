@@ -1,5 +1,5 @@
 import {describe} from "vitest";
-import {testDCFAgainstStrings} from "../../tests/lib/utils";
+import {testDCFAgainstStrings} from "../../tests/lib/utils.js";
 
 describe("Basic example with auth, distributed mode", testDCFAgainstStrings({
   dcf_dirname: __dirname,

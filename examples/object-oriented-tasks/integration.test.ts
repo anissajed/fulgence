@@ -1,5 +1,5 @@
 import {describe} from "vitest";
-import {testDCFAgainstStrings} from "../../tests/lib/utils";
+import {testDCFAgainstStrings} from "../../tests/lib/utils.js";
 
 describe("OO-tasks example, distributed mode", testDCFAgainstStrings({
   dcf_dirname: __dirname,

@@ -1,10 +1,9 @@
 import {Api} from "../../api.types";
 
 export type ServerInstance = unknown;
-export type ServerSpecificOpts = unknown;
-export type ServerOpts = {
+export type ServerOpts<T = unknown> = {
   api: Api;
   name: string;
-  opts?: ServerSpecificOpts;
+  opts?: T;
 };
-export type Server = (opts: ServerOpts) => Promise<ServerInstance>;
+export type Server<T = unknown> = (opts: ServerOpts<T>) => Promise<ServerInstance>;

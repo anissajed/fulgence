@@ -3,6 +3,7 @@ import {generateJWT, verifyJWT} from "./jwt.js";
 const name = process.env.CHUNK_NAME;
 const header_name = "authorization";
 
+/** @type import("fulgence").ClientPlugin */
 export const client_auth_plugin = {
   beforeRequest: async ({body, fetch_opts, dest_opts}) => {
     const jwt = await generateJWT({sub: name});
@@ -15,6 +16,7 @@ export const client_auth_plugin = {
   },
 };
 
+/** @type import("fulgence").ServerPlugin */
 export const server_auth_plugin = {
   onRequest: async (data, req) => {
     const auth_header = req.headers?.[header_name] || "";
