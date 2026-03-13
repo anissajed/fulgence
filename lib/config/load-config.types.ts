@@ -8,9 +8,25 @@ interface RawConfig {
   transport_server?: string;
   tasks: Record<string, TaskConfig>;
 };
-export type Config = RawConfig & {
+
+type Config = RawConfig & {
   config_path: string,
   basepath: string,
 };
+interface BuildConfigOpts {
+  raw_config: RawConfig;
+  config_path?: string;
+};
+export type BuildConfig = (opts: BuildConfigOpts) => Config;
+
 export type RawConfigLoader = (config_path: string) => Promise<RawConfig>;
-export type LoadConfig = (opts: {path: string, loader?: RawConfigLoader}) => Promise<Config>;
+
+type GetRawConfigOptsConfigPath = {
+  config_path: string;
+};
+type GetRawConfigOptsConfig = {
+  config: RawConfig;
+};
+export type GetRawConfigOpts = GetRawConfigOptsConfigPath | GetRawConfigOptsConfig;
+export type GetRawConfig = (opts: GetRawConfigOpts) => RawConfig;
+

@@ -53,38 +53,19 @@ const api = await buildApi({
 The returned `api` instance is described in the **Client API** section below.
 
 #### Overload
-Instead of providing `config_path`, you may pass a preloaded configuration object, as for entrypoint.
+Instead of loading the config from the `config_path`, you may pass a preloaded configuration object, as for entrypoint. This may be useful in e.g. a browser context.
 ```ts
-import {buildApi, loadConfig} from "fulgence";
-
-const config = await loadConfig({path: config_path});
+import {buildApi} from "fulgence";
+import config from "./fulgence-config.js";
 
 const api = await buildApi({
   local_module_name,
   config,
+  config_path: "./fulgence-config.js",
 });
 ```
-
----
-
-### `loadConfig()`
-`loadConfig()` loads and resolves a configuration object from a given `config_path`.
-
-```ts
-import {loadConfig} from "fulgence";
-
-const config = await loadConfig({
-  path: config_path,
-  loader: fileLoader,
-});
-```
-
-#### Arguments
-- **config_path** - Path to the config file (e.g. `/home/me/my-project/config.json`).
-- **loader** (optional) - a function loading the content configuration of the configuration file, and returning the JSON representation of its content. It looks like `async (config_path: string) => raw_config`. The default one does no more than a `require()`.
-
-#### Returns
-The returned `config` object can be passed to `buildApi()` or used programmatically.
+- **config** - The `config` object is exactly what would be loaded if you load a config file.
+- **config_path** (Optional) - This path still allows fulgence to resolve the relatives paths in config, if any.
 
 ---
 

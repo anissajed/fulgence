@@ -1,7 +1,5 @@
-import {loadConfig, buildApi} from "fulgence/client";
-import raw_config from "./api/api-config.js";
-
-const config = await loadConfig({path: "local", loader: async () => raw_config});
+import {buildApi} from "fulgence/client";
+import config from "./api/api-config.js";
 
 const api = await buildApi({
   // Note: If you to set an empty string in local_module_name,
@@ -9,6 +7,7 @@ const api = await buildApi({
   // So you have to set a non-empty string that is not a task/module name.
   local_module_name: "front",
   config,
+  config_path: "./api/api-config.js",
 });
 const payload = {
   example: true,

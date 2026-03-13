@@ -1,5 +1,5 @@
 import {Api} from "./api.types";
-import {Config} from "./config/load-config.types";
+import {GetRawConfigOpts} from "./config/load-config.types";
 import {DefaultServerSpecificOpts} from "./transport/server/default/server.types";
 import {
   ServerInstance,
@@ -9,13 +9,7 @@ type EntrypointOptsBase<T = unknown> = {
   name: string;
   server_opts?: T;
 };
-type EntrypointOptsConfigPath<T = unknown> = EntrypointOptsBase<T> & {
-  config_path: string;
-};
-type EntrypointOptsConfig<T = unknown> = EntrypointOptsBase<T> & {
-  config: Config;
-};
-type EntrypointOpts<T = unknown> = EntrypointOptsConfigPath<T> | EntrypointOptsConfig<T>;
+type EntrypointOpts<T = unknown> = EntrypointOptsBase<T> & GetRawConfigOpts;
 interface EntrypointRes {
   server: ServerInstance;
   api: Api;

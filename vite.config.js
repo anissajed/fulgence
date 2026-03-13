@@ -16,6 +16,7 @@ const base_config = defineConfig({
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
+    minify: false,
 
     // The 2 configs generate 2 separate build process,
     // they must not delete the outher one output.
@@ -35,7 +36,6 @@ export const node_config = mergeConfig(base_config, {
         "transport/client/default/index": resolve(__dirname, "lib/transport/client/default/index.ts"),
         "transport/server/default/index": resolve(__dirname, "lib/transport/server/default/index.ts"),
       },
-      minify: false,
     },
   },
   plugins: [
