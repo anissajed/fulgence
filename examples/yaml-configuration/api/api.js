@@ -7,6 +7,7 @@ const config_path = new URL("./api-config.yaml", import.meta.url).pathname;
 
 const yaml_content = await fs.promises.readFile(config_path, 'utf8');
 const config = parseYaml(yaml_content);
+console.log("Loaded YAML config file");
 
 const runServer = async () => {
   const {server, api} = await entrypoint({
