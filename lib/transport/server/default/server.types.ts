@@ -1,5 +1,6 @@
 import {Server, IncomingMessage} from "http";
 import {ServerOpts} from "../types";
+import {Api} from "../../../api.types";
 
 type OnRequest = (data: unknown, req: IncomingMessage) => unknown;
 type BeforeResponseSent = (unknown) => unknown;
@@ -11,7 +12,7 @@ export interface ServerPlugin {
 export interface DefaultServerSpecificOpts {
   port?: number | string;
   req_max_size_bytes?: number;
-  onReady?: (port: any) => void;
+  onReady?: (opts: {api: Api}) => void;
   onRequest?: OnRequest;
   beforeResponseSent?: BeforeResponseSent;
 }

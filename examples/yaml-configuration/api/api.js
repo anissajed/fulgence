@@ -9,12 +9,14 @@ const yaml_content = await fs.promises.readFile(config_path, 'utf8');
 const config = parseYaml(yaml_content);
 console.log("Loaded YAML config file");
 
-const runServer = async () => {
+const runServer = async ({
+  onReady = ({api}) => {},
+} = {}) => {
   const {server, api} = await entrypoint({
     name,
     config,
     config_path,
-    server_opts: {port},
+    server_opts: {port, onReady},
   });
 
   return {server, api};

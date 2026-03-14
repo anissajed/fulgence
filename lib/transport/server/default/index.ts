@@ -4,4 +4,5 @@ export type {
   ServerPlugin,
   DefaultServer,
   ServerWithPlugin,
+  DefaultServerSpecificOpts,
 } from "./server.types.js";

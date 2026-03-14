@@ -21,7 +21,7 @@ type Server = ({
   opts: {
     port: number | string;
     req_max_size_bytes?: number;
-    onReady?: (port: any) => void;
+    onReady?: (opts: {port: number | string; api: Api}) => void;
     onRequest?: OnRequest;
     beforeResponseSent?: BeforeResponseSent;
   };

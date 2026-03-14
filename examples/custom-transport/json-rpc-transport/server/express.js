@@ -31,21 +31,22 @@ export const createApp = ({router}) => {
   return app;
 };
 
-const createServer = ({app, port, name = "Monolith"}) => {
+const createHttpServer = ({app, port, name = "Monolith", onReady = () => {}}) => {
   const server = http.createServer(app);
   server.listen(port);
   server.on("listening", () => {
     // @ts-ignore
     const {port} = server.address();
     console.log(name + ", Initialization: Listening on port " + port);
+    onReady();
   });
 
   return server;
 };
 
-export const createExpressServer = ({port, name, router}) => {
+export const createServer = ({port, name, router, onReady}) => {
   const app = createApp({router});
-  const server = createServer({app, port, name});
+  const server = createHttpServer({app, port, name, onReady});
 
   return server;
 };

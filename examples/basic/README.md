@@ -1,4 +1,3 @@
-
 # Basic Example
 This example demonstrates the simplest way to split tasks into separate modules and unify them under a single API.
 
