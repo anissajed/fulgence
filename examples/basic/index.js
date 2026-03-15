@@ -11,4 +11,4 @@ const onReady = ({api}) => {
     }, 1000);
   }
 };
-await runServer({onReady});
+runServer({onReady});
