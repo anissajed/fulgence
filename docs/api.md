@@ -121,11 +121,14 @@ Example configuration (all optional fields included):
 ##### `tasks`
 A dictionary where keys are task/module names and values are task configuration objects.
 
-##### `tasks.<task>.file`
+##### `tasks.<task name>`
+The name - and identifier - of a task. It can be technically any string, but for easier use it's better for you to choose names that could be used as javascript variables names.
+
+##### `tasks.<task name>.file`
 Path (relative to the config file) to the task/module implementation.
 Used when the task is loaded locally.
 
-##### `tasks.<task>.url`
+##### `tasks.<task name>.url`
 Remote URL from the caller’s perspective of the task/module when running in distributed mode.
 Used when the task is not loaded locally.
 
