@@ -12,13 +12,13 @@
       "allowSyntheticDefaultImports": true,
       "strict": false,
       "forceConsistentCasingInFileNames": true,
-      "module": "ESNext",
-      "moduleResolution": "bundler",
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.js"],
+  "include": ["**/*.ts", "**/*.js", "examples/nestjs-integration/src/api/tasks.ts"],
   "exclude": [
     "node_modules",
     "dist",
@@ -30,5 +30,6 @@
     "examples/object-oriented-tasks",
     "examples/yaml-configuration",
     "examples/front-back",
+    "examples/nestjs-integration",
   ],
 }

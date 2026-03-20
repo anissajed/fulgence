@@ -2,7 +2,7 @@ interface TaskConfig {
   file: string;
   url: string;
 };
-interface RawConfig {
+export interface RawConfig {
   tasks_lifecycle?: string;
   transport_client?: string;
   transport_server?: string;
@@ -27,6 +27,12 @@ type GetRawConfigOptsConfigPath = {
 type GetRawConfigOptsConfig = {
   config: RawConfig;
 };
-export type GetRawConfigOpts = GetRawConfigOptsConfigPath | GetRawConfigOptsConfig;
+
+// This should be the most proper type to be used. But since TS can't understand is in the clients codes, we will export another simpler one. We keep it here for documentation.
+type _GetRawConfigOpts = GetRawConfigOptsConfigPath | GetRawConfigOptsConfig | (GetRawConfigOptsConfigPath & GetRawConfigOptsConfig);
+export interface GetRawConfigOpts {
+  config_path?: string;
+  config?: RawConfig;
+};
 export type GetRawConfig = (opts: GetRawConfigOpts) => RawConfig;
 

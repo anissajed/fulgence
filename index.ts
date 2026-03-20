@@ -1,4 +1,4 @@
-export {entrypoint} from "./lib/entrypoint.js";
+export {entrypoint, initServer} from "./lib/entrypoint.js";
 export * from "./client.js";
 export type * from "./client.js";
 

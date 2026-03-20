@@ -8,13 +8,14 @@ const __dirname = import.meta.dirname;
 const configuredDtsPlugin = ({include}) => dts({
   include,
   insertTypesEntry: true,
+  rollupTypes: true,
 })
 
 const base_config = defineConfig({
   build: {
     lib: {
       formats: ["es", "cjs"],
-      fileName: (format, entryName) => `${entryName}.${format}.js`,
+      fileName: (format, entryName) => `${entryName}.${format === "cjs" ? "cjs" : "mjs"}`,
     },
     minify: false,
 

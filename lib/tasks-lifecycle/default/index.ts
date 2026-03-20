@@ -1,1 +1,1 @@
-export {onInitTask, onDoTask} from "./hooks";
+export {onInitTask, onDoTask} from "./hooks.js";
