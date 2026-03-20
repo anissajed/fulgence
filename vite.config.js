@@ -11,8 +11,8 @@ export default defineConfig({
       formats: ["es", "cjs"],
       fileName: (format, entryName) => `${entryName}.${format === "cjs" ? "cjs" : "mjs"}`,
       entry: {
-        "transport/client/default/index": resolve(__dirname, "lib/transport/client/default/index.ts"),
-        "transport/server/default/index": resolve(__dirname, "lib/transport/server/default/index.ts"),
+        "client/index": resolve(__dirname, "lib/client/index.ts"),
+        "server/index": resolve(__dirname, "lib/server/index.ts"),
       },
     },
     minify: false,
@@ -25,7 +25,7 @@ export default defineConfig({
   plugins: [
     {...nodeExternals(), enforce: "pre"},
     dts({
-      include: ["lib", "client.ts", "index.ts"],
+      include: ["lib", "client.ts"],
       insertTypesEntry: true,
     }),
   ],

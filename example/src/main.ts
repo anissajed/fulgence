@@ -1,2 +1,2 @@
-import {client} from "mylib/transport/client/default";
-import {SomeType} from "mylib/transport/server/default";
+import {someValue} from "mylib/client";
+import {SomeType} from "mylib/server";
