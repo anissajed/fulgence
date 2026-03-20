@@ -4,6 +4,7 @@
     "moduleResolution": "nodenext",
     "target": "ESNext",
     "incremental": false,
+    "tsBuildInfoFile": "",
     "skipLibCheck": true,
   },
   "include": ["src/**/*.ts"]
