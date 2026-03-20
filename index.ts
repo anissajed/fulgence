@@ -1,4 +1,3 @@
-export {entrypoint, initServer} from "./lib/entrypoint.js";
 export * from "./client.js";
 export type * from "./client.js";
 
@@ -7,5 +6,4 @@ export type {
   ServerOpts,
   Server,
 } from "./lib/transport/server/types.js";
-export type {Entrypoint} from "./lib/entrypoint.types.js";
 export type {OnInitTask, OnDoTask} from "./lib/tasks-lifecycle/types.js";
