@@ -41,24 +41,3 @@ export const node_config = mergeConfig(base_config, {
     configuredDtsPlugin({include: ["lib", "client.ts", "index.ts"]}),
   ],
 });
-
-export const browser_config = mergeConfig(base_config, {
-  build: {
-    lib: {
-      entry: {
-        "client": resolve(__dirname, "client.ts"),
-      },
-    },
-    sourcemap: true,
-  },
-  resolve: {
-    alias: {
-      path: resolve(__dirname, "lib/primitives/path.js"),
-      "./default-file-loader.js": resolve(__dirname, "lib/config/default-file-loader.browser.js"),
-      "../transport/server/default/index.js": "lib/primitives/unimplemented.js",
-    },
-  },
-  plugins: [
-    configuredDtsPlugin({include: ["lib", "client.ts"]}),
-  ],
-});
