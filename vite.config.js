@@ -31,8 +31,6 @@ export const node_config = mergeConfig(base_config, {
   build: {
     lib: {
       entry: {
-        "index": resolve(__dirname, "index.ts"),
-        "tasks-lifecycle/default/index": resolve(__dirname, "lib/tasks-lifecycle/default/index.ts"),
         "transport/client/default/index": resolve(__dirname, "lib/transport/client/default/index.ts"),
         "transport/server/default/index": resolve(__dirname, "lib/transport/server/default/index.ts"),
       },
