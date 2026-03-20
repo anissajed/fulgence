@@ -36,13 +36,21 @@
     }
   },
   "scripts": {
-    "build": "tsc --p ./tsconfig.json; vite build --config vite.node.config.js && vite build --config vite.browser.config.js",
-    "prepublishOnly": "npm run build"
+    "build:ts": "tsc --p ./tsconfig.json",
+    "build:vite:node": "vite build --config vite.node.config.js",
+    "build:vite:browser": "vite build --config vite.browser.config.js",
+    "build": "npm run build:ts; npm run build:vite:node; npm run build:vite:browser",
+    "start": "npm run build; cd example; npm run build"
   },
   "devDependencies": {
-    "globals": "^17.4.0",
-    "rollup-plugin-node-externals": "^8.1.2",
-    "vite": "^7.3.1",
-    "vite-plugin-dts": "^4.5.4"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.7",
+    "globals": "17.4.0",
+    "rollup-plugin-node-externals": "8.1.2",
+    "vite": "7.3.1",
+    "vite-plugin-dts": "4.5.4"
+  },
+  "dependencies": {
+    "typescript": "5.8.2"
   }
 }

@@ -18,18 +18,11 @@
       "isolatedModules": true,
       "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.js", "examples/nestjs-integration/src/api/tasks.ts"],
+  "include": ["**/*.ts", "**/*.js", "example/src/api/tasks.ts"],
   "exclude": [
     "node_modules",
     "dist",
-    "build",
     "*.config.js",
-    "examples/basic",
-    "examples/basic-with-auth",
-    "examples/custom-transport",
-    "examples/object-oriented-tasks",
-    "examples/yaml-configuration",
-    "examples/front-back",
-    "examples/nestjs-integration",
+    "example",
   ],
 }

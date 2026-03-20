@@ -8,7 +8,6 @@ const __dirname = import.meta.dirname;
 const configuredDtsPlugin = ({include}) => dts({
   include,
   insertTypesEntry: true,
-  rollupTypes: true,
 })
 
 const base_config = defineConfig({
