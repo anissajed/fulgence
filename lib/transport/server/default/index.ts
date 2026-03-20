@@ -1,8 +1,5 @@
-export {server, withPlugin} from "./server.js";
+export {server} from "./server.js";
 
 export type {
-  ServerPlugin,
-  DefaultServer,
-  ServerWithPlugin,
-  DefaultServerSpecificOpts,
+  SomeType,
 } from "./server.types.js";

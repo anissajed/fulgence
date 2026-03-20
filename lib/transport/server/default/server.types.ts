@@ -1,24 +1,6 @@
-import {Server, IncomingMessage} from "http";
-import {ServerOpts} from "../types.js";
-import {Api} from "../../../api.types.js";
-
-type OnRequest = (data: unknown, req: IncomingMessage) => unknown;
-type BeforeResponseSent = (unknown) => unknown;
-export interface ServerPlugin {
-  onRequest?: OnRequest;
-  beforeResponseSent?: BeforeResponseSent;
-}
-
-export interface DefaultServerSpecificOpts {
+export interface SomeType {
   port?: number | string;
-  req_max_size_bytes?: number;
-  onReady?: (opts: {api: Api}) => void;
-  onRequest?: OnRequest;
-  beforeResponseSent?: BeforeResponseSent;
+  onReady?: Function;
+  onRequest?: Function;
+  beforeResponseSent?: Function;
 }
-type DefaultServerOpts = ServerOpts & {
-  opts: DefaultServerSpecificOpts;
-}
-export type DefaultServer = (opts: DefaultServerOpts) => Promise<Server>;
-
-export type ServerWithPlugin = (plugin: ServerPlugin, server: DefaultServer) => DefaultServer;
