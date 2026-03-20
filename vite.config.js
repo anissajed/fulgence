@@ -18,9 +18,7 @@ const base_config = defineConfig({
     },
     minify: false,
 
-    // The 2 configs generate 2 separate build process,
-    // they must not delete the outher one output.
-    emptyOutDir: false,
+    emptyOutDir: true,
   },
   output: {
     exports: "named",
