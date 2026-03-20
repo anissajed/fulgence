@@ -1,4 +1,4 @@
-export {server} from "./server.js";
+export {someValue} from "./server.js";
 
 export type {
   SomeType,
