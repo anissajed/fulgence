@@ -5,7 +5,7 @@ import nodeExternals from "rollup-plugin-node-externals";
 
 const __dirname = import.meta.dirname;
 
-export const node_config = defineConfig({
+export default defineConfig({
   build: {
     lib: {
       formats: ["es", "cjs"],

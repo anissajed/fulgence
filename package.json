@@ -22,8 +22,8 @@
   },
   "scripts": {
     "build:ts": "tsc --p ./tsconfig.json",
-    "build:vite:node": "vite build --config vite.node.config.js",
-    "build": "npm run build:ts; npm run build:vite:node",
+    "build:vite": "vite build --config vite.config.js",
+    "build": "npm run build:ts; npm run build:vite",
     "start": "npm run build; cd example; npm run build"
   },
   "devDependencies": {
