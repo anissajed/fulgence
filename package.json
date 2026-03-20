@@ -23,8 +23,8 @@
   "scripts": {
     "build:ts": "tsc --p ./tsconfig.json",
     "build:vite": "vite build --config vite.config.js",
-    "build": "npm run build:ts; npm run build:vite",
-    "start": "npm run build; cd example; npm run build"
+    "build:example": "cd example; npm run build",
+    "build": "npm run build:ts; npm run build:vite; npm run build:example"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
