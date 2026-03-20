@@ -3,6 +3,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "ESNext",
+    "incremental": false,
     "skipLibCheck": true,
   },
   "include": ["src/**/*.ts"]
