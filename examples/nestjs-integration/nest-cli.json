@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "assets":["**/*.json"],
+    "watchAssets": true
+  }
+}

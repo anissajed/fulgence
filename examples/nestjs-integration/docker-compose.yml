@@ -1,0 +1,40 @@
+services:
+  a:
+    container_name: accounts
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/nestjs-integration
+    environment:
+      CHUNK_NAME: AccountsService
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  b:
+    container_name: base
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/nestjs-integration
+    environment:
+      CHUNK_NAME: BaseService
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  c:
+    container_name: leads
+    image: "node:21-alpine"
+    working_dir: /usr/src/examples/nestjs-integration
+    environment:
+      CHUNK_NAME: LeadsService
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+
+networks:
+  fulgence_network:
