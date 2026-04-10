@@ -1,5 +1,5 @@
 import {entrypoint} from "fulgence";
-/** @type import("../types").Entrypoint */
+/** @type import("../types.js").Entrypoint */
 const typedEntrypoint = entrypoint;
 
 const {CHUNK_NAME: name, PORT: port = 3010} = process.env;

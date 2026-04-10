@@ -1,4 +1,4 @@
-import {Client, DestOpts} from "../types";
+import {Client, DestOpts} from "../types.js";
 
 interface BeforeRequestOpts {
   body: unknown;

@@ -1,9 +1,9 @@
-import {Api} from "./api.types";
-import {GetRawConfigOpts} from "./config/load-config.types";
-import {DefaultServerSpecificOpts} from "./transport/server/default/server.types";
+import {Api} from "./api.types.js";
+import {GetRawConfigOpts} from "./config/load-config.types.js";
+import {DefaultServerSpecificOpts} from "./transport/server/default/server.types.js";
 import {
   ServerInstance,
-} from "./transport/server/types";
+} from "./transport/server/types.js";
 
 type EntrypointOptsBase<T = unknown> = {
   name: string;

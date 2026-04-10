@@ -1,4 +1,4 @@
-import {Requester} from "../../api.types";
+import {Requester} from "../../api.types.js";
 
 export interface DestOpts {
   name: string;

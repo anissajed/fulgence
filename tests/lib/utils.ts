@@ -1,7 +1,7 @@
 import {expect, it, beforeAll, afterAll} from "vitest"
 import {DockerComposeEnvironment, Wait} from "testcontainers"
 
-/** @typedef {import("./utils.types").StartDCFAndWaitForLog} StartDCFAndWaitForLog */
+/** @typedef {import("./utils.types.js").StartDCFAndWaitForLog} StartDCFAndWaitForLog */
 /** @type StartDCFAndWaitForLog */
 export const startDCFAndWaitForLog = async ({
   dcf_dirname = __dirname,
@@ -20,7 +20,7 @@ export const startDCFAndWaitForLog = async ({
   return environment;
 }
 
-/** @typedef {import("./utils.types").StopDCF} StopDCF */
+/** @typedef {import("./utils.types.js").StopDCF} StopDCF */
 /** @type StopDCF */
 export const stopDCF = async ({environment}) => {
   if (environment) {
@@ -38,7 +38,7 @@ const onErrorFactory = ({timeout_id, stream, reject}) => (err) => {
   reject(err)
 };
 
-/** @typedef {import("./utils.types").WaitLogContaining} WaitLogContaining */
+/** @typedef {import("./utils.types.js").WaitLogContaining} WaitLogContaining */
 /** @type WaitLogContaining */
 export const waitLogContaining = async function (
   container,
@@ -70,7 +70,7 @@ export const waitLogContaining = async function (
   })
 }
 
-/** @typedef {import("./utils.types").ExpectLogFromContainer} ExpectLogFromContainer */
+/** @typedef {import("./utils.types.js").ExpectLogFromContainer} ExpectLogFromContainer */
 /** @type ExpectLogFromContainer */
 export const expectLogFromContainer = async ({
   environment,
@@ -85,7 +85,7 @@ export const expectLogFromContainer = async ({
   expect(logs).toContain(text);
 }
 
-/** @typedef {import("./utils.types").TestDCFAgainstStrings} TestDCFAgainstStrings */
+/** @typedef {import("./utils.types.js").TestDCFAgainstStrings} TestDCFAgainstStrings */
 /** @type TestDCFAgainstStrings */
 export const testDCFAgainstStrings = ({
   dcf_dirname,

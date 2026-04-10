@@ -1,4 +1,4 @@
-import {Api} from "../../api.types";
+import {Api} from "../../api.types.js";
 
 export type ServerInstance = unknown;
 export type ServerOpts<T = unknown> = {

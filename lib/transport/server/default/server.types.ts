@@ -1,6 +1,6 @@
 import {Server, IncomingMessage} from "http";
-import {ServerOpts} from "../types";
-import {Api} from "../../../api.types";
+import {ServerOpts} from "../types.js";
+import {Api} from "../../../api.types.js";
 
 type OnRequest = (data: unknown, req: IncomingMessage) => unknown;
 type BeforeResponseSent = (unknown) => unknown;
