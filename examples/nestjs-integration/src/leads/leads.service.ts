@@ -8,12 +8,14 @@ import {Lead} from "./entities/lead.entity";
 export class LeadsService {
   private readonly items: Lead[] = [];
 
-  create(createItemDto: CreateLeadDto) {
-    const item: Lead = {id: this.items.length, ...createItemDto};
+  async create(createItemDto: CreateLeadDto) {
+    const id = this.items.length;
+    const item: Lead = {id, ...createItemDto};
     this.items.push(item);
+    return id;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.items[id];
   }
 }

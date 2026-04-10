@@ -1,4 +1,4 @@
 export class Account {
   id: number;
-  name: string;
+  accountName: string;
 }

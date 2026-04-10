@@ -15,6 +15,8 @@ class ValueHandler {
   }
 
   get () {
+//const that = this;
+//console.log("ValueHandler.get()", {value: that.value});
     return this.value;
   }
 

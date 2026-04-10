@@ -1,6 +1,7 @@
 const taskProxy = ({task}) => {
   const proxy = new Proxy(task, {
     get: function (target, prop) {
+console.log("objectOrientedApi.taskProxy", {target, prop});
       return (arg) => target({
         operation: prop,
         arg,

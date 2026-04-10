@@ -13,7 +13,9 @@ export class BaseController {
   }
 
   @Post()
-  addCRMEntry(@Body() createCRMEntryDto: CreateCRMEntryDto): string {
-    return this.baseService.addCRMEntry(createCRMEntryDto);
+  async addCRMEntry(@Body() createCRMEntryDto: CreateCRMEntryDto): Promise<string> {
+console.log("BaseController.addCRMEntry (Post)", {createCRMEntryDto});
+    const res = await this.baseService.addCRMEntry(createCRMEntryDto);
+    return res;
   }
 }

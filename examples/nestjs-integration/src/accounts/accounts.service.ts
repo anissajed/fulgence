@@ -8,12 +8,14 @@ import {withFulgence} from "#src/fulgence/with-fulgence";
 export class AccountsService {
   private readonly items: Account[] = [];
 
-  create(createItemDto: CreateAccountDto) {
-    const item: Account = {id: this.items.length, ...createItemDto};
+  async create(createItemDto: CreateAccountDto) {
+    const id = this.items.length;
+    const item: Account = {id, ...createItemDto};
     this.items.push(item);
+    return id;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.items[id];
   }
 }

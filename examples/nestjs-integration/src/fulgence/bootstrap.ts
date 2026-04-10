@@ -11,6 +11,7 @@ const onReady = ({api}) => {
         example: true,
       };
 
+console.log("onReady", {api, BaseService: api.BaseService});
       const res = await api.BaseService.addCRMEntry(payload);
       console.log("Final result:", res);
     }, 1000);
