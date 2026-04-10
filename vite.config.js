@@ -14,7 +14,7 @@ const base_config = defineConfig({
   build: {
     lib: {
       formats: ["es", "cjs"],
-      fileName: (format, entryName) => `${entryName}.${format}.js`,
+      fileName: (format, entryName) => `${entryName}.${format === "cjs" ? "cjs" : "mjs"}`,
     },
     minify: false,
 
