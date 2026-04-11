@@ -2,6 +2,8 @@
 
 ### `entrypoint()`
 `entrypoint()` bootstraps a task/module - or all the tasks/modules for a monolith.
+Internally, it calls `buildApi()` and `initServer()`.
+
 ```ts
 import {entrypoint} from "fulgence";
 
@@ -35,6 +37,7 @@ Instead of providing `config_path`, you may pass a preloaded configuration objec
 
 ### `buildApi()`
 `buildApi()` is intended for environments where `entrypoint()` is not executed (for example, in a standalone client process).
+Its implementation is influenced by the `Transport Client Plugin` (cf below).
 
 ```ts
 import {buildApi} from "fulgence";
@@ -66,6 +69,32 @@ const api = await buildApi({
 ```
 - **config** - The `config` object is exactly what would be loaded if you load a config file.
 - **config_path** (Optional) - This path still allows fulgence to resolve the relatives paths in config, if any.
+
+---
+
+### `initServer()`
+`initServer()` is intended for the minority of environments where the API has to be manually created with `buildApi()`. If it is possible, always prefer using `entrypoint()`.
+Its implementation is influenced by the `Transport Server Plugin` (cf below).
+
+```ts
+const server = await initServer({
+  name,
+  server_opts: {port, onReady},
+  raw_config,
+  config_path: path.join(__dirname, "./api-config.virtual.json"),
+  api,
+});
+```
+
+#### Arguments
+- **name** - Same as for `entrypoint()` argument.
+- **server_opts** - Same as for `entrypoint()` argument.
+- **raw_config** - The `raw_config` object is exactly what would be loaded if you load a config file. Same as for `buildApi()`'s `config` argument.
+- **config_path** (Optional) - Same as for `entrypoint()` argument.
+- **api** (Optional) - An existing Fulgence client API.
+
+#### Returns
+The generated server is returned, ready to answer requests from both its "without Fulgence goal" and a Fulgence client API.
 
 ---
 

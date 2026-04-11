@@ -2,7 +2,7 @@ interface TaskConfig {
   file: string;
   url: string;
 };
-interface RawConfig {
+export interface RawConfig {
   tasks_lifecycle?: string;
   transport_client?: string;
   transport_server?: string;
