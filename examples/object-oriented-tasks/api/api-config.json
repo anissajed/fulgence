@@ -1,5 +1,7 @@
 {
   "tasks_lifecycle": "./tasks-lifecycle.js",
+  "transport_client": "./transport-client.js",
+  "transport_server": "./transport-server.js",
   "tasks": {
     "a": {
       "file": "../a.js",

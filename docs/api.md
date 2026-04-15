@@ -237,10 +237,33 @@ export default async function server({api, name, opts}) {
 Creates a client for a given remote task, or all tasks in monolith mode.
 
 ```ts
-export default async client({
-  name, // Name of the called task/module (from config)
-  url,  // Remote URL of the called task/module (from config)
-}) => async (request_args) => result
+client: ({name, url}) => async (request_args) => result;
+```
+
+#### Arguments
+- **name** - Name of the called task/module (from config).
+- **url** - Remote URL of the called task/module (from config).
+
+#### Returns
+A client returns a requester. The requester will forward its call to the right chunk transparently. So a requester is basically a function that will do the remote call. In the previous pseudo-code, it is this part: `async (request_args) => result`.
+
+#### Notes
+A task can be exported in any way you want (ie use `export const ...` instead of  `export default ...`); the client must reflect this exporting behaviour, because it will be passed to  `onInitTask` the same way a task is passed.
+The main difference happens right after that, because a client plugin has an extra step between `onInitTask` and `onDoTask` calls: the requester will be created on the client invocation, and will be passed to `onDoTask` as the `task` argument.
+
+It looks like:
+```
+// For a local task/chunk
+const module = await import("path/to/task.js");
+const task = await onInitTask({module, api});
+api.task_name = onDoTask({task: requester, api});
+
+
+// For the transport client plugin
+const module = await import("path/to/transport-client-plugin.js");
+const client = await onInitTask({module, api});
+const requester = client({name, url});
+api.task_name = onDoTask({task: requester, api});
 ```
 
 #### Example
@@ -261,25 +284,34 @@ A plugin must export two hooks:
 The plugin is declared in the configuration file (see the **Config File** section).
 
 #### `onInitTask`
+This hook runs when the client API is generated, a priori right after the task/module is imported.
+
 Default behavior:
 ```ts
-onInitTask: async ({module, api}) => module
+onInitTask: async ({module, api}) => module.default
 ```
 
-- Runs immediately after the task/module is imported.
-- Must return the initialized task, ready to be executed.
-- The returned value can be of any type.
-- The returned task is later passed to `onDoTask`.
+##### Arguments
+- **module** - the module as if it was loaded by `const module = await import("path/to/module.js")`.
+- **api** - the Fulgence-generated client API.
+
+##### Returns
+The returned value can be of any type. It must return the initialized task, ready to be executed, and will be  later passed to `onDoTask`.
 
 #### `onDoTask`
+This hook defines how the task is executed. It is run each time a task is called via the client API.
+
 Default behavior:
 ```ts
-onDoTask: async ({task, input, api}) => task(input, api)
+onDoTask: ({task, api}) => (input, extra) => task(input, extra ?? api)
 ```
 
-- Defines how the task is executed.
-- Receives the initialized task returned by `onInitTask`.
-- Its return value is forwarded to the caller.
+##### Arguments
+- **task** - the initialized task returned by `onInitTask`.
+- **api** - the Fulgence-generated client API.
+
+##### Returns
+It returns a function that will be used as an interface of the client API, similar to `api.onDoTaskResult(opts)`.
 
 #### Example
 A complete example of a custom Tasks Lifecycle Plugin is available in the [Object-Oriented Tasks example](../examples/object-oriented-tasks).

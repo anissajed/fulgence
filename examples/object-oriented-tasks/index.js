@@ -8,7 +8,7 @@ const onReady = ({api}) => {
       };
       const res = await api.a.addAttributes(payload);
       console.log("Final result:", res);
-    }, 1000);
+    }, 2000);
   }
 };
 await runServer({onReady});

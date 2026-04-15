@@ -1,4 +1,5 @@
 import {client_auth_plugin} from "./auth-plugins.js";
-import {client as baseClient, withPlugin} from "fulgence/transport/client/default";
+import client, {withPlugin} from "fulgence/transport/client/default";
 
-export const client = withPlugin(client_auth_plugin, baseClient);
+const newClient = withPlugin(client_auth_plugin, client);
+export default newClient;

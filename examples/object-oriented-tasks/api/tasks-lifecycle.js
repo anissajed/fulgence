@@ -11,7 +11,7 @@ export const onInitTask = async ({module, api}) => {
 };
 
 /** @type import("../types.js").OnDoTask */
-export const onDoTask = async ({task, api}) => (input) => {
+export const onDoTask = ({task, api}) => (input) => {
   if (!input?.operation) throw new Error("The asked task execution has no associated operation");
 
   return task[input.operation](input.arg);

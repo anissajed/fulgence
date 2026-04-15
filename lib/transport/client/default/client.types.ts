@@ -16,7 +16,7 @@ export interface ClientPlugin {
   onResponse?: OnResponse;
 }
 
-type DefaultClientRequester = (request_args: unknown, fetch_opts: RequestInit) => Promise<unknown>;
+type DefaultClientRequester = (body: unknown, fetch_opts?: RequestInit) => Promise<unknown>;
 export type DefaultClient = Client & ((dest_opts: DestOpts) => DefaultClientRequester);
 
 export type ClientWithPlugin = (plugin: ClientPlugin, client: DefaultClient) => DefaultClient;

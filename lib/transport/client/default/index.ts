@@ -1,4 +1,4 @@
-export {client, withPlugin} from "./client.js";
+export {default, withPlugin} from "./client.js";
 
 export type {
   ClientPlugin,
