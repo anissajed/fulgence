@@ -1,9 +1,9 @@
-import {Api} from "../../api.types.js";
+import {Api as GenericApi} from "../../api.types.js";
 
 export type ServerInstance = unknown;
-export type ServerOpts<T = unknown> = {
+export type ServerOpts<SpecificOpts = unknown, Api = GenericApi> = {
   api: Api;
   name: string;
-  opts?: T;
+  opts?: SpecificOpts;
 };
-export type Server<T = unknown> = (opts: ServerOpts<T>) => Promise<ServerInstance>;
+export type Server<SpecificOpts = unknown, Api = GenericApi> = (opts: ServerOpts<SpecificOpts, Api>) => Promise<ServerInstance>;

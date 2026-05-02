@@ -14,7 +14,7 @@ interface EntrypointRes {
   server: ServerInstance;
   api: Api;
 };
-export type Entrypoint<T = DefaultServerSpecificOpts> = (opts: EntrypointOpts<T>) => Promise<EntrypointRes>;
+export type Entrypoint<T> = (opts: EntrypointOpts<T>) => Promise<EntrypointRes>;
 
 type InitServerOpts<T = unknown> = {
   name: string;
