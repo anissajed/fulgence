@@ -1,19 +1,19 @@
 # Custom transport example
-This example shows you how to customize the transport in distributed mode. It is based on the basic example.
+This example shows you how to customize the transport in distributed mode.
 
 The default transport uses http webservers to communicate. The framework can use other protocols, but it's up to you to develop your own server (with Express.js? gRPC? Nest?) and the associated network caller.
 
 ## Prerequisites
-Please see first the Prerequisites for the basic example.
-
-Next, install the example dependencies (in this directory): `npm install`.
+1. **Docker** must be installed (used for distributed mode).
+2. Install Fulgence, as described in the package README.
+3. Then return to this example directory and link the package with `npm install`.
 
 ## Run
 
 ### Monolith mode
 Since the monolith mode in this example mode doesn't use the transports, its result will be similar to the monolith mode in the basic example.
 
-If you want still to run it, you should prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
+You can run it with `npm start`. Alternatively, you can prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
 
 ### Distributed mode
 ```

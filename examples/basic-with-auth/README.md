@@ -1,19 +1,19 @@
 # Basic example with authentication
-This example shows you how to add auth with the default transport in distributed mode. It is based on the basic example.
+This example shows you how to add auth with the default transport in distributed mode.
 
 Note that if you change the transport, the protection of the inter-modules communication will be configured differently; please see the documentation of each transport.
 
 ## Prerequisites
-Please see first the Prerequisites for the basic example.
-
-After that, run `npm install` to install this example's packages.
+1. **Docker** must be installed (used for distributed mode).
+2. Install Fulgence, as described in the package README.
+3. Then return to this example directory and link the package with `npm install`.
 
 ## Run
 
 ### Monolith mode
 Since in this example the monolith mode does not use inter-modules authentication, its result will be similar to the monolith mode in the basic example.
 
-If you want still to run it, you should prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
+You can run it with `npm start`. Alternatively, you can prepare a Docker Compose file inspired from `docker-compose.yml`, but with 1 service/container and without `CHUNK_NAME` set.
 
 ### Distributed mode
 ```

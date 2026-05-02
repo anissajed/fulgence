@@ -1,6 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.js"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "integration.test.ts"],
   "compilerOptions": {
     "module": "nodenext",
     "target": "esnext",

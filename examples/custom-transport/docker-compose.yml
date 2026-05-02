@@ -8,11 +8,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/custom-transport
-    - ./api:/usr/src/examples/custom-transport/api
-    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
-    - ./package.json:/usr/src/examples/custom-transport/package.json
-    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network
@@ -25,11 +20,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/custom-transport
-    - ./api:/usr/src/examples/custom-transport/api
-    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
-    - ./package.json:/usr/src/examples/custom-transport/package.json
-    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network
@@ -42,11 +32,6 @@ services:
       PORT: 3000
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/custom-transport
-    - ./api:/usr/src/examples/custom-transport/api
-    - ./json-rpc-transport:/usr/src/examples/custom-transport/json-rpc-transport
-    - ./package.json:/usr/src/examples/custom-transport/package.json
-    - ./node_modules:/usr/src/examples/custom-transport/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network

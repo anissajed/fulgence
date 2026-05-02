@@ -9,10 +9,6 @@ services:
       SECRET: AZERTYUIOP
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/basic-with-auth
-    - ./api:/usr/src/examples/basic-with-auth/api
-    - ./package.json:/usr/src/examples/basic-with-auth/package.json
-    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network
@@ -26,10 +22,6 @@ services:
       SECRET: AZERTYUIOP
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/basic-with-auth
-    - ./api:/usr/src/examples/basic-with-auth/api
-    - ./package.json:/usr/src/examples/basic-with-auth/package.json
-    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network
@@ -43,10 +35,6 @@ services:
       SECRET: AZERTYUIOP
     volumes:
     - ../..:/usr/src
-    - ../basic:/usr/src/examples/basic-with-auth
-    - ./api:/usr/src/examples/basic-with-auth/api
-    - ./package.json:/usr/src/examples/basic-with-auth/package.json
-    - ./node_modules:/usr/src/examples/basic-with-auth/node_modules
     command: ["npm", "start"]
     networks:
       - fulgence_network
