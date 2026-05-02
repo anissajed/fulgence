@@ -1,0 +1,17 @@
+{
+  "transport_server": "../transport/server/index.js",
+  "tasks": {
+    "chunk_a": {
+      "file": "../tasks/task-a.js",
+      "url": "http://task-a:3000"
+    },
+    "chunk_b": {
+      "file": "../tasks/task-b.js",
+      "url": "http://task-b:3000"
+    },
+    "chunk_c": {
+      "file": "../tasks/task-c.js",
+      "url": "http://task-c:3000"
+    }
+  }
+}

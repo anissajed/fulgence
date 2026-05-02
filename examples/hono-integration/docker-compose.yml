@@ -1,0 +1,40 @@
+services:
+  chunk-a:
+    container_name: task-a
+    image: "node:18-alpine"
+    working_dir: /usr/src/examples/hono-integration
+    environment:
+      CHUNK_NAME: chunk_a
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  chunk-b:
+    container_name: task-b
+    image: "node:18-alpine"
+    working_dir: /usr/src/examples/hono-integration
+    environment:
+      CHUNK_NAME: chunk_b
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+  chunk-c:
+    container_name: task-c
+    image: "node:18-alpine"
+    working_dir: /usr/src/examples/hono-integration
+    environment:
+      CHUNK_NAME: chunk_c
+      PORT: 3000
+    volumes:
+    - ../..:/usr/src
+    command: ["npm", "start"]
+    networks:
+      - fulgence_network
+
+networks:
+  fulgence_network:

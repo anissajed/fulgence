@@ -30,6 +30,7 @@
     "examples/object-oriented-tasks",
     "examples/yaml-configuration",
     "examples/front-back",
+    "examples/hono-integration",
     "examples/nestjs-integration",
   ],
 }
